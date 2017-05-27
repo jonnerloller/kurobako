@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 3.8.1)
 
 project (kurobako) #kurobako is black box
 
+set (kurobako_VERSION_MAJOR 0)
+set (kurobako_VERSION_MINOR 1)
+
 #Link config file. There are better ways to do this but i'm too lazy to fully master cmake.
 configure_file(
     "${CMAKE_SOURCE_DIR}/kurobakoconfig.h.in"

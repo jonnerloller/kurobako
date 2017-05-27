@@ -3,9 +3,6 @@ cmake_minimum_required(VERSION 3.8.1)
 
 project (blackbox)
 
-set (kurobako_VERSION_MAJOR 0)
-set (kurobako_VERSION_MINOR 1)
-
 #Setup Build Configs.
 if(NOT SET_UP_CONFIGURATIONS_DONE)
     set(SET_UP_CONFIGURATIONS_DONE 1)
