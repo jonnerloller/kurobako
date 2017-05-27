@@ -1,0 +1,7 @@
+.vs/
+.vscode/
+projects/
+bin/
+lib/
+Win32/
+x64/
