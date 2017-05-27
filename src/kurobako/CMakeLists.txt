@@ -19,14 +19,14 @@ set(CMAKE_STATIC_LINKER_FLAGS_FINAL "/LTCG /MACHINE:X64")
 include_directories("$(CMAKE_SOURCE_DIR)/src")
 
 #Add manually each time.
-set (KUROBAKOSOURCEFILES 
-kurobakoconfig.h
-enginemain.h enginemain.cpp
-graphics/teststructure.cpp
-)
+#set (KUROBAKOSOURCEFILES 
+#kurobakoconfig.h
+#enginemain.h enginemain.cpp
+#graphics/teststructure.cpp
+#)
 
 #auto version
-#file (GLOB_RECURSE KUROBAKOSOURCEFILES *.h *.cpp)
+file (GLOB_RECURSE KUROBAKOSOURCEFILES *.hpp *.h *.cpp)
 
 set (LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/lib)
 #build kurobako
