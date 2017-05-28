@@ -30,4 +30,6 @@ set_target_properties(sandbox PROPERTIES FINAL_POSTFIX "_final")
 set_target_properties(kurobako PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
 set_target_properties(sandbox PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
 
+target_include_directories(sandbox PUBLIC "../kurobako/")
+
 install(TARGETS sandbox DESTINATION CMAKE_BINARY_DIR)
