@@ -1,10 +1,9 @@
 #ifndef concurrency_job_h__
 #define concurrency_job_h__
 
-#include "export.h"
-#include "counter.h"
-
 #include <vector>
+
+#include "counter.h"
 
 namespace sandcastle::concurrency
 {
@@ -14,7 +13,7 @@ namespace sandcastle::concurrency
 		AFFINITY_NONE
 	};
 
-	class SANDCASTLE_CONCURRENCY_API job
+	class job
 	{
 	public:
 

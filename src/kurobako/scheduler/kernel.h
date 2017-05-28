@@ -15,8 +15,6 @@
 #include "thread.h"
 #include "worker.h"
 
-#include "export.h"
-
 namespace sandcastle::concurrency
 {
 
@@ -26,7 +24,7 @@ namespace sandcastle::concurrency
 		worker_data m_data;
 	};
 
-	class SANDCASTLE_CONCURRENCY_API kernel
+	class kernel
 	{
 	public:
 
