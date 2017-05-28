@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 3.8.1)
 
 project (kurobako) #kurobako is black box
 
+set (kurobako_VERSION_MAJOR 0)
+set (kurobako_VERSION_MINOR 1)
+
 #Link config file. There are better ways to do this but i'm too lazy to fully master cmake.
 configure_file(
     "${CMAKE_SOURCE_DIR}/kurobakoconfig.h.in"
@@ -19,14 +22,14 @@ set(CMAKE_STATIC_LINKER_FLAGS_FINAL "/LTCG /MACHINE:X64")
 include_directories("$(CMAKE_SOURCE_DIR)/src")
 
 #Add manually each time.
-set (KUROBAKOSOURCEFILES 
-kurobakoconfig.h
-enginemain.h enginemain.cpp
-graphics/teststructure.cpp
-)
+#set (KUROBAKOSOURCEFILES 
+#kurobakoconfig.h
+#enginemain.h enginemain.cpp
+#graphics/teststructure.cpp
+#)
 
 #auto version
-#file (GLOB_RECURSE KUROBAKOSOURCEFILES *.h *.cpp)
+file (GLOB_RECURSE KUROBAKOSOURCEFILES *.hpp *.h *.cpp)
 
 set (LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/lib)
 #build kurobako
