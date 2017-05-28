@@ -19,7 +19,7 @@ set(CMAKE_STATIC_LINKER_FLAGS_PROFILE "/LTCG /MACHINE:X64")
 set(CMAKE_STATIC_LINKER_FLAGS_FINAL "/LTCG /MACHINE:X64")
 
 #includes
-include_directories("$(CMAKE_SOURCE_DIR)/src")
+include_directories(${CMAKE_SOURCE_DIR}/src)
 
 #Add manually each time.
 #set (KUROBAKOSOURCEFILES 
@@ -39,6 +39,6 @@ set_target_properties(kurobako PROPERTIES RELEASE_POSTFIX "_r")
 set_target_properties(kurobako PROPERTIES PROFILE_POSTFIX "_p")
 set_target_properties(kurobako PROPERTIES FINAL_POSTFIX "_final")
 
-target_include_directories(kurobako PUBLIC $(CMAKE_CURRENT_SOURCE_DIR))
+target_include_directories(kurobako PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 install(TARGETS kurobako DESTINATION LIBRARY_OUTPUT_PATH)
