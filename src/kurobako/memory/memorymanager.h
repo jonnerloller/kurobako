@@ -3,7 +3,10 @@
 
 namespace kurobako::memory
 {
+    class MemoryManager
+    {
 
+    };
 }
 
 #endif

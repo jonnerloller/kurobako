@@ -31,6 +31,27 @@ namespace kurobako::memory
 
 			MemoryStats m_stats;
     };
+
+	template <typename T>
+	T* Allocate(MemoryStack& stack, uint64 num)
+	{
+		T* ret = static_cast<T*>(stack.Allocate(sizeof(T)));
+		T* iter = ret;
+		do
+		{
+			iter = new(iter) T();
+			++iter;
+		}(while --num != 0);
+		return ret;
+	}
+
+	template <typename T>
+	T* Allocate(MemoryStack& stack, const T& obj)
+	{
+		T* ret = static_cast<T*>(stack.Allocate(sizeof(T)));
+		ret = new(ret) T(obj);
+		return ret;
+	}
 }
 
 #endif
