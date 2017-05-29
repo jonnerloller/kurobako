@@ -1,10 +1,16 @@
 #include <iostream>
 #include "../kurobako/enginemain.h"
 #include "../kurobako/memory/memorystack.h"
+#include "../kurobako/memory/memorymanager.h"
 int main()
 {
     kurobako::engine::InitEngine();
     std::cout << "Hello World!" << std::endl;
+
+	constexpr uint64 allocation_size = 1 << 30;
+	kurobako::memory::MemoryManager::InitializeMemoryManager(allocation_size);
+	
+	kurobako::memory::MemoryManager::DestroyMemoryManager();
 	//kurobako::memory::MemoryStack stack{10000};
 	//
 	//for (int i = 0; i < 100; ++i)

@@ -8,13 +8,14 @@ namespace kurobako
     {
         public:
         static T& GetInstance(){return *m_instance;}
-        static const  T& GetInstance(return *m_instance;)
-        static void CreateInstance(){}
+		static const  T& GetInstance() { return *m_instance; }
+        static void SetInstance(T* instance){m_instance = instance;}
         static void DestroyInstance(){}
         static void RegisterGlobalInstance(T* & reg){reg = m_instance;};
+
         private:
         static T* m_instance;
-    }
+	};
 }
 
 #endif
