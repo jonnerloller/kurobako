@@ -58,7 +58,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_PROFILE ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_FINAL ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_PDB_OUTPUT_DIRECTORY_FINAL ${CMAKE_SOURCE_DIR}/bin)
 
-add_subdirectory(src/kurobako)
-add_subdirectory(src/sandbox)
+add_subdirectory(kurobako)
+add_subdirectory(sandbox)
 
 
