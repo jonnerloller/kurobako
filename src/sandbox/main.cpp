@@ -2,6 +2,7 @@
 #include "../kurobako/enginemain.h"
 #include "../kurobako/memory/memorystack.h"
 #include "../kurobako/memory/memorymanager.h"
+#include "../kurobako/types/nonpersistentstring.h"
 int main()
 {
     kurobako::engine::InitEngine();
@@ -10,6 +11,19 @@ int main()
 	constexpr uint64 allocation_size = 1 << 30;
 	kurobako::memory::MemoryManager::InitializeMemoryManager(allocation_size);
 	
+	for (int i = 0; i < 100; ++i)
+	{
+		//kurobako::NonPersistentString str = kurobako::NonPersistentString("Test String : %d", i);
+		//std::cout << str.Get() << std::endl;
+	}
+	kurobako::NonPersistentString testStr = kurobako::NonPersistentString("This string has exactly %d characters", 38);
+	kurobako::NonPersistentString testStr2 = kurobako::NonPersistentString("This string should fit");
+	kurobako::NonPersistentString testStr3 = kurobako::NonPersistentString("But this should not");
+
+	std::cout << testStr.Get() << std::endl;
+	std::cout << testStr2.Get() << std::endl;
+	std::cout << testStr3.Get() << std::endl;
+
 	kurobako::memory::MemoryManager::DestroyMemoryManager();
 	//kurobako::memory::MemoryStack stack{10000};
 	//

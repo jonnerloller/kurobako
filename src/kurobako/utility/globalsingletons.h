@@ -7,6 +7,7 @@
 #define SET_SINGLETON(T,Object) g_##T = Object
 #define DECLARE_SINGLETON(T) extern T* g_##T
 #define GET_SINGLETON(T) g_##T 
+#define GET_SINGLETON_SCOPED(Scope,T) Scope::g_##T 
 
 namespace kurobako
 {
