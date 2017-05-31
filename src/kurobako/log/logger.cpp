@@ -1,34 +1,26 @@
 #include "logger.h"
-
+#include "utility\globalsingletons.h"
+#include <sstream>
+#include <iostream>
 namespace kurobako::log
 {
-    void Log(cstr str)
+	DEFINE_SINGLETON(Logger);
+    void Logger::Log(const NonPersistentString& str, uint32 level)
     {
-        int strlen = strlen(str) + 1;
-        if(m_offset + strlen < LOG_BUFFER_SIZE)
-        {
-            strcpy_s(&m_buffer[m_offset],strlen,str);
-            m_offset += strlen;
-        }
-        // figure out how to put timestamp.
+		std::cout << str.Get() << std::endl;
     }
 
-    void Log(const NonPersistentString& str)
+    void Logger::Dump(cstr str)
     {
 
     }
 
-    void Dump(cstr str)
-    {
-
-    }
-
-    Logger():m_offset(0)
+    Logger::Logger():m_offset(0)
     {
         m_buffer[0] = 0;
     }
 
-    ~Logger()
+	Logger::~Logger()
     {
         
     }

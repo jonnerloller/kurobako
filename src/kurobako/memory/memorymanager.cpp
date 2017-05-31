@@ -16,6 +16,16 @@ namespace kurobako::memory
        SET_SINGLETON(MemoryManager,instance);
     }
 
+	void* MemoryManager::AllocateSingleton(uint64 id,uint64 size)
+	{
+		return m_memory.Allocate(size);
+	}
+
+	void MemoryManager::DeallocateSingleton(void* obj, uint64 size)
+	{
+		m_memory.Deallocate(obj, size);
+	}
+
 	MemoryManager& MemoryManager::GetMemoryManager()
 	{
 		return *GET_SINGLETON(MemoryManager);

@@ -5,13 +5,14 @@
 #include "utility\globalsingletons.h"
 #include "memorystack.h"
 #include "circularmemorybuffer.h"
+
 namespace kurobako::memory
 {
     class MemoryManager
     {
         enum
         {
-            STRING_BUFFER_SIZE = 60
+            STRING_BUFFER_SIZE = 1 << 10
         };
         public:
 
@@ -20,9 +21,12 @@ namespace kurobako::memory
 		~MemoryManager();
 
         static void InitializeMemoryManager(uint64 size);
+		
         static MemoryManager& GetMemoryManager();
         static void DestroyMemoryManager();
 
+		void DeallocateSingleton(void* obj, uint64 size);
+		void* AllocateSingleton(uint64 id,uint64 size);
         char* AllocateNonPersistentString(uint64 size);
         private:
         MemoryStack m_memory;

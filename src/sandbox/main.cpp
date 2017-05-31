@@ -3,6 +3,8 @@
 #include "../kurobako/memory/memorystack.h"
 #include "../kurobako/memory/memorymanager.h"
 #include "../kurobako/types/nonpersistentstring.h"
+#include "../kurobako/log/logger.h"
+#include "utility/singleton.h"
 int main()
 {
     kurobako::engine::InitEngine();
@@ -10,6 +12,7 @@ int main()
 
 	constexpr uint64 allocation_size = 1 << 30;
 	kurobako::memory::MemoryManager::InitializeMemoryManager(allocation_size);
+	CREATE_SINGLETON_SCOPED(kurobako::log, Logger);
 	
 	for (int i = 0; i < 100; ++i)
 	{
@@ -24,6 +27,8 @@ int main()
 	std::cout << testStr2.Get() << std::endl;
 	std::cout << testStr3.Get() << std::endl;
 
+	LOG_INFO(kurobako::NonPersistentString("Testing this feature!"), 5);
+	DESTROY_SINGLETON_SCOPE(kurobako::log, Logger);
 	kurobako::memory::MemoryManager::DestroyMemoryManager();
 	//kurobako::memory::MemoryStack stack{10000};
 	//
