@@ -1,0 +1,8 @@
+add_library(vulkan)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+link_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
+file(GLOB VULKAN_HEADERS *h *hpp)
+
+set(LIBVULKAN vulkan-1.lib)
