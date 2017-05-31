@@ -1,0 +1,11 @@
+cmake_minimum_required(3.8.1)
+
+project(dependencies)
+
+set(GLM_STATIC_LIBRARY_ENABLE TRUE)
+add_subdirectory(glm)
+# `glm_static` should now be available to link
+
+add_subdirectory(GLFW)
+add_subdirectory(FreeImage)
+add_subdirectory(vulkan)

@@ -1,4 +1,4 @@
-.vscode/
+*.vscode/
 projects/
 bin/
 lib/
@@ -6,7 +6,7 @@ Win32/
 x64/
 
 #Cmake things
-CMakeFiles/
+*CMakeFiles/
 *.cmake
 CMakeCache.txt
 
