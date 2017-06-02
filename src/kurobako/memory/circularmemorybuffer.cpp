@@ -5,7 +5,7 @@ namespace kurobako::memory
     CircularMemoryBuffer::CircularMemoryBuffer(MemoryStack& allocator, uint64 size)
     :   m_allocator(allocator),
         m_size(size),
-        m_base(reinterpret_cast<uintptr_t>(allocator.Allocate(size))),
+        m_base(reinterpret_cast<uintptr>(allocator.Allocate(size))),
         m_current(m_base.load()),
         m_destroyed(false)
     {

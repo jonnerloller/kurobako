@@ -15,9 +15,9 @@ namespace kurobako::log
 
     }
 
-    Logger::Logger():m_offset(0)
+    Logger::Logger()//:m_offset(0)
     {
-        m_buffer[0] = 0;
+        //m_buffer[0] = 0;
     }
 
 	Logger::~Logger()
