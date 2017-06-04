@@ -10,19 +10,23 @@ set(CMAKE_EXE_LINKER_FLAGS_PROFILE "/INCREMENTAL /MANIFEST /DEBUG /MACHINE:X64 /
 set(CMAKE_EXE_LINKER_FLAGS_FINAL "/LTCG /MANIFEST /DEBUG /OPT:REF /MACHINE:X64 /DYNAMICBASE kurobako_final.lib")
 
 #auto version
-file (GLOB_RECURSE SANDBOX_SOURCE *.cpp)
-file (GLOB_RECURSE SANDBOX_INCLUDE *.hpp *.h)
+file (GLOB_RECURSE SANDBOX_SOURCE src/*.cpp)
+file (GLOB_RECURSE SANDBOX_INCLUDE src/*.hpp src/*.h)
 
 #includes
-include_directories($(CMAKE_CURRENT_SOURCE_DIR)/src)
-link_directories($(CMAKE_CURRENT_SOURCE_DIR)/lib)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 set (LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/lib)
 link_directories("${LIBRARY_OUTPUT_PATH}")
 
-add_executable(sandbox ${SANDBOX_INCLUDE} ${SANDBOX_SOURCE})
+add_executable(sandbox
+	${SANDBOX_INCLUDE}
+	${SANDBOX_SOURCE})
 
+#add kurobako
 target_link_libraries(sandbox kurobako)
+target_include_directories(sandbox PUBLIC ${KUROBAKO_INCLUDE})
 
 set_target_properties(sandbox PROPERTIES DEBUG_POSTFIX "_d")
 set_target_properties(sandbox PROPERTIES RELEASE_POSTFIX "_r")
