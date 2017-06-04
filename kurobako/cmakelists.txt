@@ -14,14 +14,16 @@ set(CMAKE_STATIC_LINKER_FLAGS_FINAL "/LTCG /MACHINE:X64")
 
 #auto version
 file (GLOB_RECURSE KUROBAKO_SOURCE src/*.cpp)
-file (GLOB_RECURSE KUROBAKO_INCLUDE src/*.hpp
-                                    src/*.h)
+file (GLOB_RECURSE KUROBAKO_INCLUDE
+	src/*.hpp
+	src/*.h)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(KUROBAKO_INCLUDE ${KUROBAKO_INCLUDE} PARENT_SCOPE)
 
 #includes
-file (GLOB_RECURSE KUROBAKO_EXTERNAL_INCLUDE ext/*.hpp
-											 ext/*.h)
+file (GLOB_RECURSE KUROBAKO_EXTERNAL_INCLUDE
+	ext/*.hpp
+	ext/*.h)
 set(KUROBAKO_EXTERNAL_INCLUDE ${KUROBAKO_EXTERNAL_INCLUDE} PARENT_SCOPE)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/ext)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
