@@ -115,7 +115,7 @@ namespace kurobako::memory
 			// could be 0. But it doesn't matter.
 			//In fact we don't even need this.
 			//MemoryHeader* header = reinterpret_cast<MemoryHeader*>(rep);
-			MemoryHeader* new_header = reinterpret_cast<MemoryHeader*>(obj);
+			MemoryHeader* new_header = reinterpret_cast<MemoryHeader*>(address_of_next_data);
 			new_header->m_top.nextdata = rep;			
 		} while (!m_heaplist[heapid].compare_exchange_weak(rep, address_of_next_data));
     }

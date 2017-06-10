@@ -7,6 +7,7 @@
 #include "circularmemorybuffer.h"
 #include "memoryheap.h"
 #include "memoryconstants.h"
+#include <utility>
 namespace kurobako::memory
 {
     class MemoryManager
@@ -36,9 +37,6 @@ namespace kurobako::memory
         MemoryStack m_memory;
         CircularMemoryBuffer m_stringbuffer;
 
-
-
-
 		//Heap should definitely come last. seriously.
 		MemoryHeap m_heap;
     };
@@ -47,27 +45,84 @@ namespace kurobako::memory
 	T* HeapAllocate(cstr memtag)
 	{
 		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)>()));
-	#ifdef MEMORY_TAGGING_ENABLED
-		uintptr addr_of_header = reinterpret_cast<uintptr>(ret) - sizeof(MemoryHeap::MemoryHeader);
-		MemoryHeap::MemoryHeader* header = reinterpret_cast<MemoryHeap::MemoryHeader*>(addr_of_header);
-		header->m_top.used_when_allocated = MemoryHeap::MemoryHeader::MemoryPattern::MEMORY_PATTERN_ALLOCATED;
-		header->m_btm.userdata = memtag;
-	#endif // MEMORY
+		MemoryHeap::SetHeaderAllocatePattern(ret);
+		return ret;
+	}
+
+	template <typename T>
+	T* HeapNew(cstr memtag)
+	{
+		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)>()));
+		MemoryHeap::SetHeaderAllocatePattern(ret);
 		ret = new(ret)T();
+		return ret;
+	}
+
+	template <typename T, typename ... Args>
+	T* HeapNew(cstr memtag, Args&&... args)
+	{
+		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)>()));
+		MemoryHeap::SetHeaderAllocatePattern(ret);
+		ret = new(ret)T(std::forward<Args>(args)...);
+		return ret;
+	}
+	
+
+	template <typename T, int64 N>
+	T* HeapAllocate(cstr memtag)
+	{
+		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)*N>()));
+		return ret;
+	}
+
+	template <typename T, int64 N>
+	T* HeapNew(cstr memtag)
+	{
+		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)*N>()));
+		for(int64 i =0; i < N; ++i)
+		{
+			ret = new(ret+i)T();
+		}
+		return ret;
+	}
+
+	template <typename T, int64 N>
+	T* HeapNew(cstr memtag,const T&obj)
+	{
+		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)*N>()));
+		ret = new(ret)T(obj);
+		for(int64 i =0; i < N; ++i)
+		{
+			ret = new(ret+i)T(obj);
+		}
 		return ret;
 	}
 
 	template <typename T>
 	void HeapDeallocate(T* obj)
 	{
+		MemoryHeap::SetHeaderDeallocatePattern(obj);
+		// return pointer so we can store it.
+		kurobako::memory::MemoryManager::GetMemoryManager().HeapDeallocate(obj,GetHeapIndex<sizeof(T)>());
+	}
+
+	template <typename T>
+	void HeapDelete(T* obj)
+	{
 		//Call Destructor
 		obj->~T();
-#ifdef MEMORY_TAGGING_ENABLED
-		uintptr addr_of_header = reinterpret_cast<uintptr>(obj) - sizeof(MemoryHeap::MemoryHeader);
-		MemoryHeap::MemoryHeader* header = reinterpret_cast<MemoryHeap::MemoryHeader*>(addr_of_header);
-		header->m_top.nextdata = 0;
-		header->m_btm.used_when_freed = MemoryHeap::MemoryHeader::MemoryPattern::MEMORY_PATTERN_DEALLOCATED;
-#endif // MEMORY
+		// return pointer so we can store it.
+		kurobako::memory::MemoryManager::GetMemoryManager().HeapDeallocate(obj,GetHeapIndex<sizeof(T)>());
+	}
+
+	template <typename T, uint64 N>
+	void HeapDelete(T* obj)
+	{
+		//Call Destructor
+		for(int64 i=0; i < N; ++i)
+		{
+			(obj+i)->~T();
+		}
 		// return pointer so we can store it.
 		kurobako::memory::MemoryManager::GetMemoryManager().HeapDeallocate(obj,GetHeapIndex<sizeof(T)>());
 	}
