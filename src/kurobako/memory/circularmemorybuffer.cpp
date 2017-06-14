@@ -37,5 +37,10 @@ namespace kurobako::memory
         }while(!m_current.compare_exchange_weak(current,target));
         return reinterpret_cast<void*>(target - size);
     }
+
+	void CircularMemoryBuffer::Reset()
+	{
+		m_current = m_base.load();
+	}
 }
 

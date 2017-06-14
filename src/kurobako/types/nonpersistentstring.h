@@ -20,6 +20,8 @@ namespace kurobako
 
         void Set(const char* str);
         const char* Get()const;
+
+		inline uint64 GetLength() const { return m_strlen; }
         private:
         const char* m_str;
         uint64 m_strlen;

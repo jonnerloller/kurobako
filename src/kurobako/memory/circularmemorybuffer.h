@@ -13,6 +13,7 @@ namespace kurobako::memory
         ~CircularMemoryBuffer();
         void Destroy();
 
+		void Reset();
         void* Allocate(uint64 size);
         // Note that there's no Deallocate function.
         private:

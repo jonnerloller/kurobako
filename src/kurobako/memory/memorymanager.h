@@ -12,12 +12,13 @@ namespace kurobako::memory
 {
     class MemoryManager
     {
+		public:
         enum
         {
             STRING_BUFFER_SIZE = 1 << 20,
 			HEAP_BUFFER_SIZE = 1 << 30
         };
-        public:
+        
 
         MemoryManager(uint64 size);
         MemoryManager(const MemoryManager& rhs) = delete;
@@ -33,6 +34,8 @@ namespace kurobako::memory
 		void*	HeapAllocate(uint64 size, uint32 heapid);
 		void	HeapDeallocate(void* obj, uint32 heapid);
         char*	AllocateNonPersistentString(uint64 size);
+
+		inline CircularMemoryBuffer& GetStringBuffer() { return m_stringbuffer; }
         private:
         MemoryStack m_memory;
         CircularMemoryBuffer m_stringbuffer;
