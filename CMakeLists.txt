@@ -10,7 +10,7 @@ if(NOT SET_UP_CONFIGURATIONS_DONE)
     # No reason to set CMAKE_CONFIGURATION_TYPES if it's not a multiconfig generator
     # Also no reason mess with CMAKE_BUILD_TYPE if it's a multiconfig generator.
     if(CMAKE_CONFIGURATION_TYPES) # multiconfig generator?
-        set(CMAKE_CONFIGURATION_TYPES "Debug;Release;Profile;Final" CACHE STRING "" FORCE) 
+        set(CMAKE_CONFIGURATION_TYPES "Debug;Release;Profile;Final" CACHE STRING "" FORCE)
     else()
         if(NOT CMAKE_BUILD_TYPE)
             message("Defaulting to release build.")
@@ -48,15 +48,15 @@ add_compile_options(/MP)
 #Output Folders
 set (CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/output/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/output/lib)
 
 #Legit if I don't do this... dumb shit happens, i.e it defaults to bin/config/target.exe
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_PROFILE ${CMAKE_SOURCE_DIR}/bin)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_FINAL ${CMAKE_SOURCE_DIR}/bin)
-set(CMAKE_PDB_OUTPUT_DIRECTORY_FINAL ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG   ${CMAKE_SOURCE_DIR}/output/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/output/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_PROFILE ${CMAKE_SOURCE_DIR}/output/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_FINAL   ${CMAKE_SOURCE_DIR}/output/bin)
+set(CMAKE_PDB_OUTPUT_DIRECTORY_FINAL       ${CMAKE_SOURCE_DIR}/output/bin)
 
 add_subdirectory(kurobako)
 add_subdirectory(sandbox)

@@ -16,26 +16,35 @@ set(CMAKE_STATIC_LINKER_FLAGS_FINAL "/LTCG /MACHINE:X64")
 file (GLOB_RECURSE KUROBAKO_SOURCE src/*.cpp)
 file (GLOB_RECURSE KUROBAKO_INCLUDE
 	src/*.hpp
-	src/*.h)
+	src/*.h
+    )
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(KUROBAKO_INCLUDE ${KUROBAKO_INCLUDE} PARENT_SCOPE)
 
-#includes
-file (GLOB_RECURSE KUROBAKO_EXTERNAL_INCLUDE
-	ext/*.hpp
-	ext/*.h)
-set(KUROBAKO_EXTERNAL_INCLUDE ${KUROBAKO_EXTERNAL_INCLUDE} PARENT_SCOPE)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/ext)
-link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
-
-set (LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/lib)
+# includes
+# file (GLOB_RECURSE KUROBAKO_EXTERNAL_INCLUDE
+# 	ext/*.hpp
+# 	ext/*.h)
+# set(KUROBAKO_EXTERNAL_INCLUDE ${KUROBAKO_EXTERNAL_INCLUDE} PARENT_SCOPE)
+# include_directories(${CMAKE_CURRENT_SOURCE_DIR}/ext)
+# link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
+# 
+# set (LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/lib)
 
 #build kurobako
-add_library(kurobako STATIC ${KUROBAKO_SOURCE} ${KUROBAKO_INCLUDE} ${KUROBAKO_EXTERNAL_INCLUDE})
+add_library(kurobako STATIC
+    ${KUROBAKO_SOURCE}
+    ${KUROBAKO_INCLUDE}
+    #${KUROBAKO_EXTERNAL_INCLUDE}
+    )
+target_include_directories( kurobako
+    PUBLIC ${KUROBAKO_INCLUDE}
+    PRIVATE ${KUROBAKO_SOURCE}
+)
 
 set_target_properties(kurobako PROPERTIES DEBUG_POSTFIX "_d")
 set_target_properties(kurobako PROPERTIES RELEASE_POSTFIX "_r")
 set_target_properties(kurobako PROPERTIES PROFILE_POSTFIX "_p")
 set_target_properties(kurobako PROPERTIES FINAL_POSTFIX "_final")
 
-target_include_directories(kurobako PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+install(TARGETS kurobako DESTINATION CMAKE_BINARY_DIR)

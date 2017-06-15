@@ -22,11 +22,11 @@ link_directories("${LIBRARY_OUTPUT_PATH}")
 
 add_executable(sandbox
 	${SANDBOX_INCLUDE}
-	${SANDBOX_SOURCE})
+	${SANDBOX_SOURCE}
+    )
 
 #add kurobako
 target_link_libraries(sandbox kurobako)
-target_include_directories(sandbox PUBLIC ${KUROBAKO_INCLUDE})
 
 set_target_properties(sandbox PROPERTIES DEBUG_POSTFIX "_d")
 set_target_properties(sandbox PROPERTIES RELEASE_POSTFIX "_r")
