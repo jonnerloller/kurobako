@@ -23,7 +23,6 @@ namespace kurobako::engine
 		std::cout << "Initializing Engine(Final)" << std::endl;
 #endif
     }
-
 	void DestroyEngine()
 	{
 		DESTROY_SINGLETON_SCOPE(kurobako::log, Logger);
