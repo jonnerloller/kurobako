@@ -599,8 +599,8 @@ VkExtent2D simpletriangle::choose_swap_extent(
 
 void simpletriangle::create_graphics_pipeline() {
   // these are generated via glslangValidator.exe with the V flag
-  auto vert_spv = read_binary("graphics/shaders/vert.spv");
-  auto frag_spv = read_binary("graphics/shaders/frag.spv");
+  auto vert_spv = read_binary("src/graphics/shaders/vert.spv");
+  auto frag_spv = read_binary("src/graphics/shaders/frag.spv");
 
   vkhandle<VkShaderModule> vert_shader_module{_device, vkDestroyShaderModule};
   vkhandle<VkShaderModule> frag_shader_module{_device, vkDestroyShaderModule};
@@ -871,7 +871,7 @@ void simpletriangle::create_image_views() {
 std::vector<char> simpletriangle::read_binary(const std::string &file) {
   std::ifstream ifs(file, std::ios::ate | std::ios::binary);
 
-  if (ifs.is_open() == false) {
+  if (ifs.bad() == true) {
     throw std::runtime_error("failed to open file");
   }
 

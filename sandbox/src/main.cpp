@@ -1,7 +1,7 @@
 #include <iostream>
 
 //TODO(pangt): rename the 'src' to something
-#include "src\enginemain.h"
+#include "kurobako\src\enginemain.h"
 
 int main()
 {

@@ -1,10 +1,17 @@
 #include "enginemain.h"
 #include "kurobakoconfig.h"
+
+#include "graphics\hello_triangle.h"
+
 #include <iostream>
 namespace kurobako::engine
 {
     void InitEngine()
     {
+		sandcastle::graphics::simpletriangle triangle;
+		triangle.run();
+
+
 		int i = 0;
 		i = 3;
 		++i;
