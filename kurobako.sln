@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sandbox", "sandbox\sandbox.vcxproj", "{6CC3B18A-3962-47AC-9E1F-BABD4374DBC3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{209CF7E7-E30B-4AB3-B6CA-C613A02E1FE7} = {209CF7E7-E30B-4AB3-B6CA-C613A02E1FE7}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kurobako", "kurobako\kurobako.vcxproj", "{209CF7E7-E30B-4AB3-B6CA-C613A02E1FE7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CC3B18A-3962-47AC-9E1F-BABD4374DBC3}.Debug|x64.ActiveCfg = Debug|x64
+		{6CC3B18A-3962-47AC-9E1F-BABD4374DBC3}.Debug|x64.Build.0 = Debug|x64
+		{6CC3B18A-3962-47AC-9E1F-BABD4374DBC3}.Release|x64.ActiveCfg = Release|x64
+		{6CC3B18A-3962-47AC-9E1F-BABD4374DBC3}.Release|x64.Build.0 = Release|x64
+		{209CF7E7-E30B-4AB3-B6CA-C613A02E1FE7}.Debug|x64.ActiveCfg = Debug|x64
+		{209CF7E7-E30B-4AB3-B6CA-C613A02E1FE7}.Debug|x64.Build.0 = Debug|x64
+		{209CF7E7-E30B-4AB3-B6CA-C613A02E1FE7}.Release|x64.ActiveCfg = Release|x64
+		{209CF7E7-E30B-4AB3-B6CA-C613A02E1FE7}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

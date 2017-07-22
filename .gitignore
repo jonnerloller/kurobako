@@ -1,7 +1,16 @@
-.vs/
 .vscode/
 projects/
 bin/
 lib/
 Win32/
 x64/
+
+#Cmake things
+CMakeFiles/
+*.cmake
+CMakeCache.txt
+
+# visual studio things
+.vs/
+*vcx*
+*.sln
