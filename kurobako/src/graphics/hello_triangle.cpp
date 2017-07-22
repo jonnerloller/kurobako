@@ -13,6 +13,13 @@ namespace sandcastle::graphics {
 const int g_width = 800;
 const int g_height = 600;
 
+// When executed by sandbox, the project path has that as the root instead
+// TODO: treat shaders like data, and jigger the paths correctly
+std::string vertex_shader_path = "../kurobako/src/graphics/shaders/vert.spv";
+std::string fragment_shader_path = "../kurobako/src/graphics/shaders/frag.spv";
+
+std::string texture_image = "../kurobako/src/graphics/textures/texture.jpg";
+
 const std::vector<const char *> validation_layers = {
     "VK_LAYER_LUNARG_standard_validation"};
 
@@ -24,125 +31,125 @@ const std::vector<vertex> vertices = {{{-0.5f, -0.5f}, {1.f, 0.f, 0.f}},
                                       {{0.5f, 0.5f}, {0.f, 0.f, 1.f}},
                                       {{-0.5f, 0.5f}, {1.f, 1.f, 1.f}}};
 
-const std::vector<uint16_t> indices = {0, 1, 2, 2, 3, 0};
+  const std::vector<uint16_t> indices = {0, 1, 2, 2, 3, 0};
 
 #ifdef NDEBUG
-const bool enablevalidationlayers = false;
+  const bool enablevalidationlayers = false;
 #else
-const bool enable_validation_layers = true;
+  const bool enable_validation_layers = true;
 #endif
 
-void simpletriangle::run() {
-  init();
-  init_vulkan();
-  main_loop();
-}
-
-void simpletriangle::init() {
-  glfwInit();
-
-  glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-  glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
-  _window = glfwCreateWindow(g_width, g_height, "Vulkan", nullptr, nullptr);
-
-  glfwSetWindowUserPointer(_window, this);
-  glfwSetWindowSizeCallback(_window, simpletriangle::on_window_resize);
-}
-
-void simpletriangle::init_vulkan() {
-  create_instance();
-  setup_debug_callback();
-  create_surface();
-  pick_physical_device();
-  create_logical_device();
-  create_swap_chain();
-  create_image_views();
-  create_render_pass();
-  create_descriptor_set_layout();
-  create_graphics_pipeline();
-  create_frame_buffers();
-  create_command_pool();
-  create_texture_image();
-  create_vertex_buffer();
-  create_index_buffer();
-  create_uniform_buffer();
-  create_descriptor_pool();
-  create_descriptor_set();
-  create_command_buffers();
-  create_semaphores();
-}
-
-void simpletriangle::main_loop() {
-  while (!glfwWindowShouldClose(_window)) {
-    glfwPollEvents();
-
-    update_uniform_buffer();
-    draw_frame();
+  void simpletriangle::run() {
+    init();
+    init_vulkan();
+    main_loop();
   }
 
-  vkDeviceWaitIdle(_device);
+  void simpletriangle::init() {
+    glfwInit();
 
-  glfwDestroyWindow(_window);
-}
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
-void simpletriangle::draw_frame() {
-  uint32_t image_index;
+    _window = glfwCreateWindow(g_width, g_height, "Vulkan", nullptr, nullptr);
 
-  VkResult result = vkAcquireNextImageKHR(
-      _device, _swap_chain, std::numeric_limits<uint32_t>::max(),
-      _image_available_semaphore, VK_NULL_HANDLE, &image_index);
-
-  if (result == VK_ERROR_OUT_OF_DATE_KHR) {
-    recreate_swap_chain();
-    return;
-  } else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
-    throw std::runtime_error("failed to acquire swap chain image!");
+    glfwSetWindowUserPointer(_window, this);
+    glfwSetWindowSizeCallback(_window, simpletriangle::on_window_resize);
   }
 
-  VkSubmitInfo submit_info = {};
+  void simpletriangle::init_vulkan() {
+    create_instance();
+    setup_debug_callback();
+    create_surface();
+    pick_physical_device();
+    create_logical_device();
+    create_swap_chain();
+    create_image_views();
+    create_render_pass();
+    create_descriptor_set_layout();
+    create_graphics_pipeline();
+    create_frame_buffers();
+    create_command_pool();
+    create_texture_image();
+    create_vertex_buffer();
+    create_index_buffer();
+    create_uniform_buffer();
+    create_descriptor_pool();
+    create_descriptor_set();
+    create_command_buffers();
+    create_semaphores();
+  }
 
-  VkSemaphore wait_semaphores[] = {_image_available_semaphore};
-  VkPipelineStageFlags wait_stages[] = {
+  void simpletriangle::main_loop() {
+    while (!glfwWindowShouldClose(_window)) {
+      glfwPollEvents();
+
+      update_uniform_buffer();
+      draw_frame();
+    }
+
+    vkDeviceWaitIdle(_device);
+
+    glfwDestroyWindow(_window);
+  }
+
+  void simpletriangle::draw_frame() {
+    uint32_t image_index;
+
+    VkResult result = vkAcquireNextImageKHR(
+                                            _device, _swap_chain, std::numeric_limits<uint32_t>::max(),
+                                            _image_available_semaphore, VK_NULL_HANDLE, &image_index);
+
+    if (result == VK_ERROR_OUT_OF_DATE_KHR) {
+      recreate_swap_chain();
+      return;
+    } else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
+      throw std::runtime_error("failed to acquire swap chain image!");
+    }
+
+    VkSubmitInfo submit_info = {};
+
+    VkSemaphore wait_semaphores[] = {_image_available_semaphore};
+    VkPipelineStageFlags wait_stages[] = {
       VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
-  submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-  submit_info.waitSemaphoreCount = 1;
-  submit_info.pWaitSemaphores = wait_semaphores;
-  submit_info.pWaitDstStageMask = wait_stages;
-  submit_info.commandBufferCount = 1;
-  submit_info.pCommandBuffers = &_command_buffers[image_index];
+    submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+    submit_info.waitSemaphoreCount = 1;
+    submit_info.pWaitSemaphores = wait_semaphores;
+    submit_info.pWaitDstStageMask = wait_stages;
+    submit_info.commandBufferCount = 1;
+    submit_info.pCommandBuffers = &_command_buffers[image_index];
 
-  VkSemaphore signal_semaphores[] = {_render_finished_semaphore};
-  submit_info.signalSemaphoreCount = 1;
-  submit_info.pSignalSemaphores = signal_semaphores;
+    VkSemaphore signal_semaphores[] = {_render_finished_semaphore};
+    submit_info.signalSemaphoreCount = 1;
+    submit_info.pSignalSemaphores = signal_semaphores;
 
-  if (vkQueueSubmit(_graphics_queue, 1, &submit_info, VK_NULL_HANDLE) !=
-      VK_SUCCESS) {
-    throw std::runtime_error("failed to submit draw command buffer!");
+    if (vkQueueSubmit(_graphics_queue, 1, &submit_info, VK_NULL_HANDLE) !=
+        VK_SUCCESS) {
+      throw std::runtime_error("failed to submit draw command buffer!");
+    }
+
+    VkPresentInfoKHR present_info = {};
+    present_info.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+    present_info.waitSemaphoreCount = 1;
+    present_info.pWaitSemaphores = signal_semaphores;
+
+    VkSwapchainKHR swap_chains[] = {_swap_chain};
+    present_info.swapchainCount = 1;
+    present_info.pSwapchains = swap_chains;
+    present_info.pImageIndices = &image_index;
+
+    present_info.pResults = nullptr;
+
+    result = vkQueuePresentKHR(_presentation_queue, &present_info);
+
+    if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
+      recreate_swap_chain();
+    else if (result != VK_SUCCESS)
+      throw std::runtime_error("failed to present swap chain image!");
   }
 
-  VkPresentInfoKHR present_info = {};
-  present_info.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
-  present_info.waitSemaphoreCount = 1;
-  present_info.pWaitSemaphores = signal_semaphores;
-
-  VkSwapchainKHR swap_chains[] = {_swap_chain};
-  present_info.swapchainCount = 1;
-  present_info.pSwapchains = swap_chains;
-  present_info.pImageIndices = &image_index;
-
-  present_info.pResults = nullptr;
-
-  result = vkQueuePresentKHR(_presentation_queue, &present_info);
-
-  if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
-    recreate_swap_chain();
-  else if (result != VK_SUCCESS)
-    throw std::runtime_error("failed to present swap chain image!");
-}
-
-// assumes the instance is already initialized
-std::vector<VkExtensionProperties> simpletriangle::enumerate_extensions()
+  // assumes the instance is already initialized
+  std::vector<VkExtensionProperties> simpletriangle::enumerate_extensions()
     const {
   uint32_t extension_count = 0;
   vkEnumerateInstanceExtensionProperties(nullptr, &extension_count, nullptr);
@@ -599,8 +606,8 @@ VkExtent2D simpletriangle::choose_swap_extent(
 
 void simpletriangle::create_graphics_pipeline() {
   // these are generated via glslangValidator.exe with the V flag
-  auto vert_spv = read_binary("src/graphics/shaders/vert.spv");
-  auto frag_spv = read_binary("src/graphics/shaders/frag.spv");
+  auto vert_spv = read_binary(vertex_shader_path);
+  auto frag_spv = read_binary(fragment_shader_path);
 
   vkhandle<VkShaderModule> vert_shader_module{_device, vkDestroyShaderModule};
   vkhandle<VkShaderModule> frag_shader_module{_device, vkDestroyShaderModule};
@@ -869,9 +876,10 @@ void simpletriangle::create_image_views() {
 }
 
 std::vector<char> simpletriangle::read_binary(const std::string &file) {
+
   std::ifstream ifs(file, std::ios::ate | std::ios::binary);
 
-  if (ifs.bad() == true) {
+  if (ifs.is_open() == false) {
     throw std::runtime_error("failed to open file");
   }
 
@@ -1163,7 +1171,7 @@ void simpletriangle::copy_image(VkImage src_image, VkImage dst_image, uint32_t w
 	end_single_time_commands(command_buffer);
 }
 
-VkCommandBuffer simpletriangle::begin_single_time_commands() 
+VkCommandBuffer simpletriangle::begin_single_time_commands()
 {
   VkCommandBufferAllocateInfo alloc_info = {};
   alloc_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -1355,7 +1363,7 @@ void simpletriangle::create_descriptor_set() {
 
 void simpletriangle::create_texture_image() {
   int tex_width, tex_height, tex_channels;
-  stbi_uc *pixels = stbi_load("graphics/textures/texture.jpg", &tex_width,
+  stbi_uc *pixels = stbi_load(texture_image.c_str(), &tex_width,
                               &tex_height, &tex_channels, STBI_rgb_alpha);
 
   VkDeviceSize image_size = tex_width * tex_height * 4;
