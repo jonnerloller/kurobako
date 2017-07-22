@@ -1,9 +1,9 @@
 #include "enginemain.h"
 #include "kurobakoconfig.h"
 #include <iostream>
-#include "../kurobako/memory/memorymanager.h"
-#include "../kurobako/log/logger.h"
-#include "../kurobako/types/sizedtypes.h"
+#include "memory/memorymanager.h"
+#include "log/logger.h"
+#include "types/sizedtypes.h"
 #include "utility/singleton.h"
 namespace kurobako::engine
 {

@@ -1,6 +1,6 @@
 #ifndef NONPERSISTENTSTRING_H
 #define NONPERSISTENTSTRING_H
-#include "types\sizedtypes.h"
+#include "sizedtypes.h"
 namespace kurobako
 {
     class NonPersistentString
