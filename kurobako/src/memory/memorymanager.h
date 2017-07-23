@@ -48,7 +48,7 @@ namespace kurobako::memory
 	T* HeapAllocate(cstr memtag)
 	{
 		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)>()));
-		MemoryHeap::SetHeaderAllocatePattern(ret);
+		MemoryHeap::SetHeaderAllocatePattern(ret,cstr);
 		return ret;
 	}
 
@@ -56,7 +56,7 @@ namespace kurobako::memory
 	T* HeapNew(cstr memtag)
 	{
 		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)>()));
-		MemoryHeap::SetHeaderAllocatePattern(ret);
+		MemoryHeap::SetHeaderAllocatePattern(retcstr);
 		ret = new(ret)T();
 		return ret;
 	}
@@ -65,7 +65,7 @@ namespace kurobako::memory
 	T* HeapNew(cstr memtag, Args&&... args)
 	{
 		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)>()));
-		MemoryHeap::SetHeaderAllocatePattern(ret);
+		MemoryHeap::SetHeaderAllocatePattern(ret,cstr);
 		ret = new(ret)T(std::forward<Args>(args)...);
 		return ret;
 	}
@@ -75,6 +75,7 @@ namespace kurobako::memory
 	T* HeapAllocate(cstr memtag)
 	{
 		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)*N>()));
+		MemoryHeap::SetHeaderAllocatePattern(ret, cstr);
 		return ret;
 	}
 
@@ -82,6 +83,7 @@ namespace kurobako::memory
 	T* HeapNew(cstr memtag)
 	{
 		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)*N>()));
+		MemoryHeap::SetHeaderAllocatePattern(ret, cstr);
 		for(int64 i =0; i < N; ++i)
 		{
 			ret = new(ret+i)T();
@@ -93,6 +95,7 @@ namespace kurobako::memory
 	T* HeapNew(cstr memtag,const T&obj)
 	{
 		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)*N>()));
+		MemoryHeap::SetHeaderAllocatePattern(ret, cstr);
 		ret = new(ret)T(obj);
 		for(int64 i =0; i < N; ++i)
 		{

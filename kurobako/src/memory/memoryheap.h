@@ -58,13 +58,13 @@ namespace kurobako::memory
         void* Allocate(uint64 size, uint32 heapid);
 		void Deallocate(void* obj,uint32 heapid);
 
-        static void SetHeaderAllocatePattern(void* ptr)
+        static void SetHeaderAllocatePattern(void* ptr, cstr tag)
         {
             #ifdef KBK_MEMTAG
                 uintptr addr_of_header = reinterpret_cast<uintptr>(ptr) - sizeof(MemoryHeader);
                 MemoryHeader* header = reinterpret_cast<MemoryHeader*>(addr_of_header);
                 header->m_top.used_when_allocated = MemoryHeader::MemoryPattern::MEMORY_PATTERN_ALLOCATED;
-                header->m_btm.userdata = nullptr;
+                header->m_btm.userdata = tag;
             #endif // MEMORY
         }
 
