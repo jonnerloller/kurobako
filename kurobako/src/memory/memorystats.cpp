@@ -1,7 +1,7 @@
 #include "memorystats.h"
 namespace kurobako::memory
 {
-#if !defined(KUROBAKOFINAL) && !defined(KUROBAKOPROFILE)
+#if !defined(KBK_FINAL) && !defined(KBK_PROFILE)
 	MemoryStats::MemoryStats()
 		:m_sizeallocated(0),
 		m_numallocations(0),

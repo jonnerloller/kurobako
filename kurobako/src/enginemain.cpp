@@ -13,13 +13,13 @@ namespace kurobako::engine
 	    kurobako::memory::MemoryManager::InitializeMemoryManager(allocation_size);
 	    CREATE_SINGLETON_SCOPED(kurobako::log, Logger);
 	
-#if defined(KUROBAKODEBUG)
+#if defined(KBK_DEBUG)
         std::cout << "Initializing Engine(Debug)" << std::endl;
-#elif defined(KUROBAKORELEASE)
+#elif defined(KBK_RELEASE)
 		std::cout << "Initializing Engine(Release)" << std::endl;
-#elif defined(KUROBAKOPROFILE)
+#elif defined(KBK_PROFILE)
 		std::cout << "Initializing Engine(Profile)" << std::endl;
-#elif defined(KUROBAKOFINAL)
+#elif defined(KBK_FINAL)
 		std::cout << "Initializing Engine(Final)" << std::endl;
 #endif
     }

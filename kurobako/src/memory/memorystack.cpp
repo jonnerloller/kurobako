@@ -10,7 +10,7 @@ namespace kurobako::memory
 #ifdef MEMORY_ALIGNMENT_ENABLED
 		size = AlignSizeTo16(size);
 #endif
-		#if defined(KUROBAKODEBUG)||defined(KUROBAKORELEASE)
+		#if defined(KBK_DEBUG)||defined(KBK_RELEASE)
 		uintptr newtop = m_top + size;
 		uintptr maxtop = m_base + m_size;
 		assert(newtop < maxtop);
@@ -25,7 +25,7 @@ namespace kurobako::memory
 #ifdef MEMORY_ALIGNMENT_ENABLED
 		size = AlignSizeTo16(size);
 #endif
-		#if defined(KUROBAKODEBUG) ||defined(KUROBAKORELEASE)
+		#if defined(KBK_DEBUG) ||defined(KBK_RELEASE)
 		uintptr estimatedbase = m_top - size;
 		uintptr currentbase = reinterpret_cast<uintptr>(obj);
 		assert(estimatedbase == currentbase);

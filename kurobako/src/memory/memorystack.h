@@ -1,6 +1,8 @@
 #ifndef MEMORYSTACK_H
 #define MEMORYSTACK_H
-#include "types/sizedtypes.h"
+
+#include "types\sizedtypes.h"
+
 #include "memorystats.h"
 namespace kurobako::memory
 {

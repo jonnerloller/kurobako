@@ -73,11 +73,11 @@ namespace kurobako::memory
         {
 			// We only add the wierd memory header thing if we care about mem tagging.
 			uintptr offset = 0;
-		#if defined(MEMORY_TAGGING_ENABLED)
+		#if defined(KBK_MEMTAG)
 			size += sizeof(MemoryHeader);
 			offset = sizeof(MemoryHeader);
 		#endif	
-		#if defined(KUROBAKODEBUG)||defined(KUROBAKORELEASE)
+		#if defined(KBK_DEBUG)||defined(KBK_RELEASE)
 			uintptr newtop = m_top + size;
 			uintptr maxtop = m_base + m_size;
 			assert(newtop < maxtop);
@@ -86,7 +86,7 @@ namespace kurobako::memory
 			uintptr temp = m_top.fetch_add(size);
 			memory_from_stack = reinterpret_cast<void*>(temp + offset);
 			// reminder in case i want to do something here...
-			//#if defined(MEMORY_TAGGING_ENABLED)
+			//#if defined(KBK_MEMTAG)
 			//MemoryHeader* header = reinterpret_cast<MemoryHeader*>(temp);
 			//#endif	
 			return memory_from_stack;
@@ -99,7 +99,7 @@ namespace kurobako::memory
 	void MemoryHeap::Deallocate(void* obj, uint32 heapid)
     {
 		uint64 offset = 0;
-		#if defined(MEMORY_TAGGING_ENABLED)
+		#if defined(KBK_MEMTAG)
 		offset += sizeof(MemoryHeader);
 		#endif	
 		// This is relatively simple compared to ALLOC!

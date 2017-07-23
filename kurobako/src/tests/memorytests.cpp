@@ -1,7 +1,7 @@
 #include "memorytests.h"
-#include "types\nonpersistentstring.h"
-#include "memory\memorymanager.h"
-#include "../kurobako/log/logger.h"
+#include "types/nonpersistentstring.h"
+#include "memory/memorymanager.h"
+#include "log/logger.h"
 namespace kurobako::tests
 {
 	bool RunNonPersistentStringTests()

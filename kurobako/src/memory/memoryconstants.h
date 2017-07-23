@@ -1,11 +1,11 @@
 #ifndef MEMORYCONSTANTS_H
 #define MEMORYCONSTANTS_H
-
+#include "types\sizedtypes.h"
 namespace kurobako::memory
 {
     static const uint32 DEFAULT_MEMORY_ALIGNMENT_SIZE = 16;
-#ifdef KUROBAKODEBUG
-	#define MEMORY_TAGGING_ENABLED
+#ifdef KBK_DEBUG
+	#define KBK_MEMTAG
 #endif
 	#define MEMORY_ALIGNMENT_ENABLED
 

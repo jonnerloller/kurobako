@@ -6,7 +6,7 @@ namespace kurobako::memory
 
 	struct MemoryStats
 	{
-		#if !defined(KUROBAKOFINAL) && !defined(KUROBAKOPROFILE)
+		#if !defined(KBK_FINAL) && !defined(KBK_PROFILE)
 		uint64 m_sizeallocated;
 		uint64 m_numallocations;
 		uint64 m_numdeallocations;

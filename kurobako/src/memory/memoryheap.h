@@ -60,18 +60,18 @@ namespace kurobako::memory
 
         static void SetHeaderAllocatePattern(void* ptr)
         {
-            #ifdef MEMORY_TAGGING_ENABLED
-                uintptr addr_of_header = reinterpret_cast<uintptr>(ret) - sizeof(MemoryHeader);
+            #ifdef KBK_MEMTAG
+                uintptr addr_of_header = reinterpret_cast<uintptr>(ptr) - sizeof(MemoryHeader);
                 MemoryHeader* header = reinterpret_cast<MemoryHeader*>(addr_of_header);
                 header->m_top.used_when_allocated = MemoryHeader::MemoryPattern::MEMORY_PATTERN_ALLOCATED;
-                header->m_btm.userdata = memtag;
+                header->m_btm.userdata = nullptr;
             #endif // MEMORY
         }
 
         static void SetHeaderDeallocatePattern(void* ptr)
         {
-            #ifdef MEMORY_TAGGING_ENABLED
-		    uintptr addr_of_header = reinterpret_cast<uintptr>(obj) - sizeof(MemoryHeader);
+            #ifdef KBK_MEMTAG
+		    uintptr addr_of_header = reinterpret_cast<uintptr>(ptr) - sizeof(MemoryHeader);
 		    MemoryHeader* header = reinterpret_cast<MemoryHeader*>(addr_of_header);
 		    header->m_top.nextdata = 0;
 		    header->m_btm.used_when_freed = MemoryHeader::MemoryPattern::MEMORY_PATTERN_DEALLOCATED;
