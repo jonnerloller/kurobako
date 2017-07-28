@@ -1,31 +1,31 @@
 #include "enginemain.h"
 #include "kurobakoconfig.h"
-
-#include "graphics\hello_triangle.h"
-
 #include <iostream>
+#include "memory/memorymanager.h"
+#include "log/logger.h"
+#include "types/sizedtypes.h"
+#include "utility/singleton.h"
 namespace kurobako::engine
 {
     void InitEngine()
     {
-		sandcastle::graphics::simpletriangle triangle;
-		triangle.run();
-
-
-		int i = 0;
-		i = 3;
-		++i;
-
-		int*p = nullptr;
-#if defined(KUROBAKODEBUG)
-		*p = 3;
+        constexpr uint64 allocation_size = static_cast<uint64>(2) << 30;
+	    kurobako::memory::MemoryManager::InitializeMemoryManager(allocation_size);
+	    CREATE_SINGLETON_SCOPED(kurobako::log, Logger);
+	
+#if defined(KBK_DEBUG)
         std::cout << "Initializing Engine(Debug)" << std::endl;
-#elif defined(KUROBAKORELEASE)
+#elif defined(KBK_RELEASE)
 		std::cout << "Initializing Engine(Release)" << std::endl;
-#elif defined(KUROBAKOPROFILE)
+#elif defined(KBK_PROFILE)
 		std::cout << "Initializing Engine(Profile)" << std::endl;
-#elif defined(KUROBAKOFINAL)
+#elif defined(KBK_FINAL)
 		std::cout << "Initializing Engine(Final)" << std::endl;
 #endif
     }
+	void DestroyEngine()
+	{
+		DESTROY_SINGLETON_SCOPE(kurobako::log, Logger);
+		kurobako::memory::MemoryManager::DestroyMemoryManager();
+	}
 }
