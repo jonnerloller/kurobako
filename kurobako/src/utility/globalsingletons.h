@@ -1,7 +1,7 @@
 #ifndef GLOBALSINGLETONS_H
 #define GLOBALSINGLETONS_H
 
-#define FOWARD_CLASS_DECLARATION(T) class T
+#define FORWARD_CLASS_DECLARATION(T) class T
 #define DEFINE_SINGLETON(T) T* g_##T = nullptr
 #define CREATE_SINGLETON(T,...) do{void* ptr = kurobako::memory::MemoryManager::GetMemoryManager().AllocateSingleton(0,sizeof(T));g_##T = new(ptr) T(__VA_ARGS__);}while(0)
 #define CREATE_SINGLETON_SCOPED(scope,T,...) do{void* ptr = kurobako::memory::MemoryManager::GetMemoryManager().AllocateSingleton(0,sizeof(scope::T));scope::g_##T = new(ptr) scope::T(__VA_ARGS__);}while(0)
@@ -16,13 +16,18 @@ namespace kurobako
 {
 	namespace memory
 	{
-		FOWARD_CLASS_DECLARATION(MemoryManager);
+		FORWARD_CLASS_DECLARATION(MemoryManager);
 		DECLARE_SINGLETON(MemoryManager);
 	}
 	namespace log 
 	{
-		FOWARD_CLASS_DECLARATION(Logger);
+		FORWARD_CLASS_DECLARATION(Logger);
 		DECLARE_SINGLETON(Logger);
+	}
+	namespace engine
+	{
+		FORWARD_CLASS_DECLARATION(EngineContext);
+		DECLARE_SINGLETON(EngineContext);
 	}
 }
 

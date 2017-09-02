@@ -74,29 +74,29 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)ext;</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ProjectDir)lib;</LibraryPath>
-    <OutDir>$(SolutionDir)\Output</OutDir>
-    <IntDir>$(SolutionDir)\Output\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)\Output\</OutDir>
+    <IntDir>$(SolutionDir)\Output\$(ProjectName)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)ext;</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ProjectDir)lib;</LibraryPath>
-    <OutDir>$(SolutionDir)\Output</OutDir>
-    <IntDir>$(SolutionDir)\Output\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)\Output\</OutDir>
+    <IntDir>$(SolutionDir)\Output\$(ProjectName)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)ext;</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ProjectDir)lib;</LibraryPath>
-    <OutDir>$(SolutionDir)\Output</OutDir>
-    <IntDir>$(SolutionDir)\Output\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)\Output\</OutDir>
+    <IntDir>$(SolutionDir)\Output\$(ProjectName)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)ext;</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ProjectDir)lib;</LibraryPath>
-    <OutDir>$(SolutionDir)\Output</OutDir>
-    <IntDir>$(SolutionDir)\Output\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)\Output\</OutDir>
+    <IntDir>$(SolutionDir)\Output\$(ProjectName)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -191,8 +191,13 @@
     <ClCompile Include="ext\glm\detail\dummy.cpp" />
     <ClCompile Include="ext\glm\detail\glm.cpp" />
     <ClCompile Include="src\enginemain.cpp" />
+    <ClCompile Include="src\engine\engine.cpp" />
+    <ClCompile Include="src\engine\enginecontext.cpp" />
+    <ClCompile Include="src\engine\runtime.cpp" />
+    <ClCompile Include="src\engine\testsystem.cpp" />
     <ClCompile Include="src\graphics\hello_triangle.cpp" />
     <ClCompile Include="src\graphics\teststructure.cpp" />
+    <ClCompile Include="src\jobs\runtimejobs.cpp" />
     <ClCompile Include="src\log\logger.cpp" />
     <ClCompile Include="src\memory\circularmemorybuffer.cpp" />
     <ClCompile Include="src\memory\memoryheap.cpp" />
@@ -207,6 +212,7 @@
     <ClCompile Include="src\scheduler\kernel.cpp" />
     <ClCompile Include="src\scheduler\thread.cpp" />
     <ClCompile Include="src\scheduler\worker.cpp" />
+    <ClCompile Include="src\jobs\enginejobs.cpp" />
     <ClCompile Include="src\tests\memorytests.cpp" />
     <ClCompile Include="src\tests\tests.cpp" />
     <ClCompile Include="src\types\nonpersistentstring.cpp" />
@@ -375,8 +381,14 @@
     <ClInclude Include="ext\vulkan\vulkan.h" />
     <ClInclude Include="ext\vulkan\vulkan.hpp" />
     <ClInclude Include="src\enginemain.h" />
+    <ClInclude Include="src\engine\engine.h" />
+    <ClInclude Include="src\engine\enginecontext.h" />
+    <ClInclude Include="src\engine\runtime.h" />
+    <ClInclude Include="src\engine\system.h" />
+    <ClInclude Include="src\engine\testsystem.h" />
     <ClInclude Include="src\graphics\hello_triangle.h" />
     <ClInclude Include="src\graphics\vkhandle.h" />
+    <ClInclude Include="src\jobs\runtimejobs.h" />
     <ClInclude Include="src\kurobakoconfig.h" />
     <ClInclude Include="src\log\logger.h" />
     <ClInclude Include="src\memory\circularmemorybuffer.h" />
@@ -395,10 +407,13 @@
     <ClInclude Include="src\scheduler\kernel.h" />
     <ClInclude Include="src\scheduler\thread.h" />
     <ClInclude Include="src\scheduler\worker.h" />
+    <ClInclude Include="src\jobs\enginejobs.h" />
+    <ClInclude Include="src\jobs\tasks.h" />
     <ClInclude Include="src\tests\memorytests.h" />
     <ClInclude Include="src\tests\tests.h" />
     <ClInclude Include="src\types\nonpersistentstring.h" />
     <ClInclude Include="src\types\sizedtypes.h" />
+    <ClInclude Include="src\types\typehelper.h" />
     <ClInclude Include="src\utility\globalsingletons.h" />
     <ClInclude Include="src\utility\singleton.h" />
     <ClInclude Include="src\utility\singletonmanager.h" />

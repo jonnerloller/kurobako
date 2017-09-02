@@ -15,7 +15,10 @@ namespace kurobako::memory
 		m_top(m_base.load()),
 		m_destroyed(false)
 	{
-
+        for (auto& elem : m_heaplist)
+        {
+            elem.store(0);
+        }
 	}
 
     MemoryHeap::~MemoryHeap()

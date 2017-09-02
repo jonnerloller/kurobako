@@ -11,6 +11,7 @@ int main()
 {
     kurobako::engine::InitEngine();
 	kurobako::tests::RunUnitTests();
+	kurobako::engine::RunEngine();
 
 	
 	//kurobako::memory::MemoryStack stack{10000};

@@ -5,6 +5,9 @@
 #include "log/logger.h"
 #include "types/sizedtypes.h"
 #include "utility/singleton.h"
+#include "jobs/enginejobs.h"
+#include "engine/enginecontext.h"
+#include "engine/engine.h"
 namespace kurobako::engine
 {
     void InitEngine()
@@ -12,6 +15,9 @@ namespace kurobako::engine
         constexpr uint64 allocation_size = static_cast<uint64>(2) << 30;
 	    kurobako::memory::MemoryManager::InitializeMemoryManager(allocation_size);
 	    CREATE_SINGLETON_SCOPED(kurobako::log, Logger);
+		CREATE_SINGLETON_SCOPED(kurobako::engine, EngineContext);
+		
+		GET_SINGLETON(EngineContext)->m_Engine = memory::HeapNew<Engine>("Engine");
 	
 #if defined(KBK_DEBUG)
         std::cout << "Initializing Engine(Debug)" << std::endl;
@@ -23,6 +29,11 @@ namespace kurobako::engine
 		std::cout << "Initializing Engine(Final)" << std::endl;
 #endif
     }
+	void RunEngine()
+	{
+		jobs::BeginMainLoop();
+	}
+
 	void DestroyEngine()
 	{
 		DESTROY_SINGLETON_SCOPE(kurobako::log, Logger);

@@ -27,7 +27,7 @@ namespace sandcastle::concurrency
 
 		std::lock_guard<std::mutex> lock(m_lock);
 
-		m_queue.push_front(task);
+		m_queue.push_back(task);
 	}
 
 	job* deque::pop()

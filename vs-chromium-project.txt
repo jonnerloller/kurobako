@@ -1,0 +1,17 @@
+[SearchableFiles.include]
+*
+
+[SearchableFiles.ignore]
+Output/
+*.pdb
+*.exe
+*.dll
+.git/
+.vs/
+.vscode/
+
+[SourceExplorer.ignore]
+.git/
+*.suo
+.vs/
+.vscode/
