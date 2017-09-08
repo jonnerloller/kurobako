@@ -9,8 +9,7 @@ namespace sandcastle::concurrency
 
 	void chain::push_back(job * j)
 	{
-		if (j)
-		{
+		if (j) {
 			m_jobs.push_back(j);
 		}
 	}
@@ -22,8 +21,7 @@ namespace sandcastle::concurrency
 
 	void chain::func()
 	{
-		for (job* const j : m_jobs)
-		{
+		for (job* const j : m_jobs) {
 			j->run();
 		}
 	}

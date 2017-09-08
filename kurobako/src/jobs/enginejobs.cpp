@@ -19,6 +19,12 @@ namespace kurobako::jobs
 		}
 	};
 
+    class SomeJob : public sandcastle::concurrency::job
+    {
+    public:
+
+    };
+
 	void BeginMainLoop()
 	{
 		using kernel = sandcastle::concurrency::kernel;
