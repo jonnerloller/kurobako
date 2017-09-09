@@ -24,7 +24,7 @@ namespace sandcastle::concurrency
 
 		virtual void func() override;
 
-		counter m_ctr;
+		counter           m_ctr;
 		std::vector<job*> m_jobs;
 
 	};

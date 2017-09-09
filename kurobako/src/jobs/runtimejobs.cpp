@@ -91,11 +91,10 @@ namespace kurobako::jobs
 
     sRuntimeUpdate.add(arr, sizeof(arr) / sizeof(TestJob*));
 
-    for (int i = 0; i < 10; ++i)
-      {
-        // BUNCH OF UPDATES
-        sRuntimeLoop.push_back(&sRuntimeUpdate);
-      }
+    for (int i = 0; i < 10; ++i) {
+      // BUNCH OF UPDATES
+      sRuntimeLoop.push_back(&sRuntimeUpdate);
+    }
     //sRuntimeLoop.push_back(&sRuntimeEndFrameSync);
   }
 

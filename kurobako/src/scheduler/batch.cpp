@@ -17,8 +17,7 @@ namespace sandcastle::concurrency
 
 	void batch::wait()
 	{
-		while (m_ctr > 0)
-		{
+		while (m_ctr > 0) {
 			this_thread::this_worker.run_one();
 		}
 	}
@@ -28,8 +27,7 @@ namespace sandcastle::concurrency
 		if (j == nullptr)
 			return;
 
-		for (size_t i = 0; i < size; ++i)
-		{
+		for (size_t i = 0; i < size; ++i) {
 			job* t = j[i];
 
 			t->notify(&m_ctr);
@@ -42,9 +40,10 @@ namespace sandcastle::concurrency
 	void batch::func()
 	{
 		//assume that the jobs are already registered
-		for (job* job : m_jobs)
-		{
+		for (job* job : m_jobs) {
 			this_thread::this_worker.submit_job(job);
 		}
-	}
+
+    wait();
+  }
 }

@@ -18,8 +18,7 @@ namespace sandcastle::concurrency
 		m_main_data.m_graphics	= m_main_data.m_work			= &m_queuepool[0];
 		m_main_data.m_sleep		= m_main_data.m_sleepgraphics	= &m_sleep_graphics;
 
-		for (auto& elem : m_queuepool)
-		{
+		for (auto& elem : m_queuepool) {
 			if (&elem == m_main_data.m_work)
 				continue;
 
@@ -27,8 +26,7 @@ namespace sandcastle::concurrency
 		}
 
 		//other workers
-		for (size_t i = 1; i < m_threadpool.size(); ++i)
-		{
+		for (size_t i = 1; i < m_threadpool.size(); ++i) {
 			worker_data data;
 			data.m_stop				= &m_stop;
 			data.m_work				= &m_queuepool[i];
@@ -37,8 +35,7 @@ namespace sandcastle::concurrency
 			data.m_graphics			= m_main_data.m_graphics;
 			data.m_sleepgraphics	= m_main_data.m_sleepgraphics;
 
-			for (size_t j = 0; j < m_queuepool.size(); ++j)
-			{
+			for (size_t j = 0; j < m_queuepool.size(); ++j) {
 				if (data.m_work == &m_queuepool[j])
 					continue;
 
@@ -63,8 +60,7 @@ namespace sandcastle::concurrency
 	{
 		m_stop.store(true);
 
-		for (auto& thread : m_threadpool)
-		{
+		for (auto& thread : m_threadpool) {
 			thread.join();
 		}
 	}

@@ -12,11 +12,11 @@ namespace sandcastle::concurrency
 {
 	struct worker_data
 	{
-		deque* m_work;		//this thread's queue
-		deque* m_graphics;	//== m_work if graphics worker
+		deque* m_work;              //this thread's queue
+		deque* m_graphics;          //== m_work if graphics worker
 
 		std::vector<deque*> m_steal;
-		std::atomic<bool>* m_stop;
+		std::atomic<bool>*  m_stop;
 
 		std::condition_variable* m_sleep;
 		std::condition_variable* m_sleepgraphics; //== m_sleepgraphics if graphics worker

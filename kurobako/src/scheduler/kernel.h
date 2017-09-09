@@ -2,8 +2,8 @@
 #define concurrency_kernel_h__
 
 /*
-	- spawns workers
-	- informs them of the queues of other workers to steal from
+  - spawns workers
+  - informs them of the queues of other workers to steal from
 */
 
 #include <thread>
@@ -20,7 +20,7 @@ namespace sandcastle::concurrency
 
 	struct thread_info
 	{
-		size_t m_thread_id;
+		size_t      m_thread_id;
 		worker_data m_data;
 	};
 
@@ -41,7 +41,7 @@ namespace sandcastle::concurrency
 
 		static void launch_worker(thread_info data);
 
-		unsigned int m_numthreads; //including main thread
+		unsigned int m_numthreads;  //including main thread
 
 		std::atomic<bool> m_stop;
 

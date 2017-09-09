@@ -15,13 +15,11 @@ namespace sandcastle::concurrency
 
 	void worker::run()
 	{
-		while (m_data.m_stop->load() == false)
-		{
-			if (run_one() == false)
-			{
-				std::unique_lock<std::mutex> lock(*m_data.m_sleeplock);
-				m_data.m_sleep->wait(lock);
-			}
+		while (m_data.m_stop->load() == false) {
+			if (run_one() == false) {
+        std::unique_lock<std::mutex> lock(*m_data.m_sleeplock);
+        m_data.m_sleep->wait(lock);
+      }
 		}
 	}
 
@@ -29,8 +27,7 @@ namespace sandcastle::concurrency
 	{
 		job* task = nullptr;
 
-		if (task = collect_job())
-		{
+		if (task = collect_job()) {
 			task->run();
 
 			return true;
@@ -44,13 +41,11 @@ namespace sandcastle::concurrency
 		if (task == nullptr)
 			return;
 
-		if (task->affinity() == AFFINITY_GRAPHICS)
-		{
+		if (task->affinity() == AFFINITY_GRAPHICS) {
 			m_data.m_graphics->push(task);
 			m_data.m_sleepgraphics->notify_one();
 		}
-		else
-		{
+		else {
 			m_data.m_work->push(task);
 			m_data.m_sleep->notify_one();
 		}
@@ -63,10 +58,8 @@ namespace sandcastle::concurrency
 
 		if (task)
 			return task;
-		else
-		{
-			for (deque* elem : m_data.m_steal)
-			{
+		else {
+			for (deque* elem : m_data.m_steal) {
 				if (task = elem->steal())
 					return task;
 			}
