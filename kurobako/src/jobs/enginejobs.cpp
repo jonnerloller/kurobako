@@ -4,14 +4,15 @@
 #include "enginejobs.h"
 #include "runtimejobs.h"
 #include <iostream>
+
 namespace kurobako::jobs
 {
 	// so we want to basically want to mix batches and chains here and dump them in from here.
 	class StartJob : public sandcastle::concurrency::job
 	{
-        
+
 	public:
-		virtual void func()
+		virtual void func() override
 		{
             static RuntimeLoopJob startJob;
             RuntimeLoopChain::PrepareFrame();
@@ -19,11 +20,16 @@ namespace kurobako::jobs
 		}
 	};
 
-    class SomeJob : public sandcastle::concurrency::job
-    {
-    public:
+  class SomeJob : public sandcastle::concurrency::job
+  {
+  public:
 
-    };
+    virtual void func() override
+    {
+      // TODO: create job/batch/chain. and then print them
+    }
+
+  };
 
 	void BeginMainLoop()
 	{

@@ -32,7 +32,9 @@ namespace sandcastle::concurrency
 
 		virtual void func() = 0;
 
-		bool                  m_running = false;
+  private:
+
+    bool                  m_running = false;
 		bool                  m_done    = false;
 		worker_affinity       m_affinity;
 		std::vector<counter*> m_ctrs;
