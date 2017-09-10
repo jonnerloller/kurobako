@@ -24,13 +24,17 @@ namespace sandcastle::concurrency
 
 		worker_affinity affinity() const;
 		bool done() const;
+    bool running() const;
 
-		void notify(counter*);
+    /*
+      if notifier is already registered, does nothing
+    */
+		void notify_this(counter* notifiee);
 		void reset_notify_list();
 
 	protected:
 
-		virtual void func() = 0;
+    virtual void func() = 0;
 
   private:
 

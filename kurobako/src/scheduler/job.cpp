@@ -1,5 +1,6 @@
 #include "job.h"
 #include "thread.h"
+#include <algorithm>
 
 namespace sandcastle::concurrency
 {
@@ -30,7 +31,7 @@ namespace sandcastle::concurrency
 
 		func();
 
-		for (counter* ctr : m_ctrs) {
+		for (counter* const ctr : m_ctrs) {
 			--(*ctr);
 		}
 
@@ -43,9 +44,13 @@ namespace sandcastle::concurrency
 		return m_done;
 	}
 
-  void job::notify(counter* ctr)
+  void job::notify_this(counter* ctr)
   {
-		if (ctr) {
+    auto match_ptr = [ctr](counter* c) {
+      return ctr == c;
+    };
+
+    if (ctr && std::none_of(m_ctrs.begin(), m_ctrs.end(), match_ptr)) {
       m_ctrs.push_back(ctr);
     }
   }

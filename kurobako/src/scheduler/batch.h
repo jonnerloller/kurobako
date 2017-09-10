@@ -17,10 +17,11 @@ namespace sandcastle::concurrency
 		batch(job** job, size_t size = 1);
 
 		void wait();
+    void add(job** job, size_t size = 1);
 
-		void add(job** job, size_t size = 1);
+    bool done() const;
 
-	private:
+  private:
 
 		virtual void func() override;
 

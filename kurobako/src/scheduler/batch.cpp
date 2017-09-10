@@ -15,11 +15,19 @@ namespace sandcastle::concurrency
 		add(job, size);
 	}
 
+  /*
+    Waits for all elements of the batch job to complete. If the job is not
+    running, does nothing
+  */
 	void batch::wait()
 	{
-		while (m_ctr > 0) {
-			this_thread::this_worker.run_one();
-		}
+    if (running() == false) {
+      return;
+    }
+
+    while (m_ctr > 0) {
+      this_thread::this_worker.run_one();
+    }
 	}
 
 	void batch::add(job** j, size_t size)
@@ -30,20 +38,27 @@ namespace sandcastle::concurrency
 		for (size_t i = 0; i < size; ++i) {
 			job* t = j[i];
 
-			t->notify(&m_ctr);
-			++m_ctr;
-
 			m_jobs.push_back(t);
 		}
 	}
 
+  /*
+    Preps the counter that all jobs will notify
+    runs each job asynchronously
+    does *not* block until it is done. blocking is wrapped separately
+  */
 	void batch::func()
 	{
-		//assume that the jobs are already registered
-		for (job* job : m_jobs) {
-			this_thread::this_worker.submit_job(job);
-		}
+    for (job* elem : m_jobs) {
+      elem->notify_this(&m_ctr);
+    }
 
-    wait();
+    m_ctr = m_jobs.size();
+
+    //assume that the jobs are already registered
+    for (job* task : m_jobs) {
+      task->detach();
+    }
   }
+
 }
