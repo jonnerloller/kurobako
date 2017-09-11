@@ -63,37 +63,47 @@ namespace sandcastle::graphics
     bool is_device_suitable(VkPhysicalDevice device);
     bool check_device_extension_support(VkPhysicalDevice device);
 
-    static VKAPI_ATTR VkBool32 VKAPI_CALL debugcallback_fn(
-        VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objtype,
-        uint64_t obj, size_t location, int32_t code, const char* layerprefix,
-        const char* msg, void* userdata);
+    static VKAPI_ATTR
+    VkBool32 VKAPI_CALL
+    debugcallback_fn(VkDebugReportFlagsEXT      flags,
+                     VkDebugReportObjectTypeEXT objtype,
+                     uint64_t                   obj,
+                     size_t                     location,
+                     int32_t                    code,
+                     const char*                layerprefix,
+                     const char*                msg,
+                     void*                      userdata);
 
     void setup_debug_callback();
+
     VkResult CreateDebugReportCallbackEXT(VkInstance                                instance,
-					  const VkDebugReportCallbackCreateInfoEXT* pcreateinfo,
-					  const VkAllocationCallbacks*              palloc,
-					  VkDebugReportCallbackEXT*                 pcallback);
+                                          const VkDebugReportCallbackCreateInfoEXT* pcreateinfo,
+                                          const VkAllocationCallbacks*              palloc,
+                                          VkDebugReportCallbackEXT*                 pcallback);
 
     static void DestroyDebugReportCallbackEXT(VkInstance                         instance,
-					      VkDebugReportCallbackEXT           callback,
-					      const VkAllocationCallbacks*       palloc);
+                                              VkDebugReportCallbackEXT           callback,
+                                              const VkAllocationCallbacks*       palloc);
 
-    struct queue_family_indices {
-
+    struct queue_family_indices
+    {
       int _graphics_family     = -1;
       int _presentation_family = -1;
 
-      bool is_complete() {
-	return _graphics_family >= 0 && _presentation_family >= 0;
+      bool is_complete()
+      {
+        return _graphics_family >= 0 && _presentation_family >= 0;
       }
     };
 
-    queue_family_indices find_queue_families(VkPhysicalDevice device);
-    struct swap_chain_support_details {
+    struct swap_chain_support_details
+    {
       VkSurfaceCapabilitiesKHR        _capabilities;
       std::vector<VkSurfaceFormatKHR> _formats;
       std::vector<VkPresentModeKHR>   _present_modes;
     };
+
+    queue_family_indices find_queue_families(VkPhysicalDevice device);
 
     swap_chain_support_details query_swap_chain_support(VkPhysicalDevice device);
     VkSurfaceFormatKHR         choose_swap_surface_format(const std::vector<VkSurfaceFormatKHR>& available_formats);
@@ -149,7 +159,8 @@ namespace sandcastle::graphics
     vkhandle<VkSemaphore> _render_finished_semaphore{ _device, vkDestroySemaphore };
 
     void create_vertex_buffer();
-    uint32_t find_memory_type(uint32_t typefilter, VkMemoryPropertyFlags properties);
+    uint32_t find_memory_type(uint32_t typefilter,
+                              VkMemoryPropertyFlags properties);
 
     vkhandle<VkBuffer>       _vertex_buffer{ _device, vkDestroyBuffer };
     vkhandle<VkDeviceMemory> _vertex_buffer_memory{ _device, vkFreeMemory };
@@ -171,17 +182,27 @@ namespace sandcastle::graphics
     vkhandle<VkBuffer>       _uniform_buffer{ _device, vkDestroyBuffer };
     vkhandle<VkDeviceMemory> _uniform_buffer_memory{ _device, vkFreeMemory };
 
-    void create_buffer(VkDeviceSize size,VkBufferUsageFlags usage, VkMemoryPropertyFlags properties,
-		       vkhandle<VkBuffer>& buffer, vkhandle<VkDeviceMemory>& buffer_memory);
-    void copy_buffer(VkBuffer src_buffer, VkBuffer dst_buffer, VkDeviceSize size);
-    void create_image(uint32_t width, uint32_t height, VkFormat format,
-		      VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties,
-		      vkhandle<VkImage>& image, vkhandle<VkDeviceMemory>& image_memory);
+    void create_buffer(VkDeviceSize              size,
+                       VkBufferUsageFlags        usage,
+                       VkMemoryPropertyFlags     properties,
+                       vkhandle<VkBuffer>&       buffer,
+                       vkhandle<VkDeviceMemory>& buffer_memory);
+    void copy_buffer(VkBuffer                    src_buffer,
+                     VkBuffer                    dst_buffer,
+                     VkDeviceSize                size);
+    void create_image(uint32_t                   width,
+                      uint32_t                   height,
+                      VkFormat                   format,
+                      VkImageTiling              tiling,
+                      VkImageUsageFlags          usage,
+                      VkMemoryPropertyFlags      properties,
+                      vkhandle<VkImage>&         image,
+                      vkhandle<VkDeviceMemory>&  image_memory);
 
-
-
-
-	void copy_image(VkImage src_image, VkImage dst_image, uint32_t width, uint32_t height);
+    void copy_image(VkImage  src_image,
+                    VkImage  dst_image,
+                    uint32_t width,
+                    uint32_t height);
 
     vkhandle<VkDescriptorPool> _descriptor_pool{ _device, vkDestroyDescriptorPool };
     VkDescriptorSet            _descriptor_set;
@@ -192,7 +213,7 @@ namespace sandcastle::graphics
     VkCommandBuffer begin_single_time_commands();
     void end_single_time_commands(VkCommandBuffer command_buffer);
     void transition_image_layout(VkImage image, VkFormat format,
-				 VkImageLayout old_layout, VkImageLayout new_layout);
+                                 VkImageLayout old_layout, VkImageLayout new_layout);
 
   };
 }
