@@ -19,6 +19,7 @@ namespace sandcastle::concurrency
 
 		job(worker_affinity = AFFINITY_NONE);
 
+        void wait();
 		void run();		//blocks
 		void detach();	//does not block
 
@@ -35,8 +36,8 @@ namespace sandcastle::concurrency
 		bool m_running = false;
 		bool m_done = false;
 		worker_affinity m_affinity;
-		std::vector<counter*> m_ctrs;
-
+		std::vector<counter*> m_notifylist;
+        counter m_ctr;
 	};
 }
 

@@ -58,7 +58,7 @@ namespace kurobako::jobs
 	void RuntimeEndFrameSyncJob::func()
 	{
 		std::cout << "End Frame Sync : " << target << std::endl;
-        //assert(target.load() == actual.load());
+        assert(target.load() == actual.load());
 	}
 
 	void RuntimeLoopJob::func()

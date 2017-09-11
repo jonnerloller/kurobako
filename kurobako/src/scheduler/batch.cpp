@@ -15,14 +15,6 @@ namespace sandcastle::concurrency
 		add(job, size);
 	}
 
-	void batch::wait()
-	{
-		while (m_ctr > 0)
-		{
-			this_thread::this_worker.run_one();
-		}
-	}
-
 	void batch::add(job** j, size_t size)
 	{
 		if (j == nullptr)
@@ -46,5 +38,6 @@ namespace sandcastle::concurrency
 		{
 			this_thread::this_worker.submit_job(job);
 		}
+        wait();
 	}
 }

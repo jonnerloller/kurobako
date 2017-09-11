@@ -25,6 +25,7 @@ namespace sandcastle::concurrency
 		for (job* const j : m_jobs)
 		{
 			j->run();
+            wait();
 		}
 	}
 }

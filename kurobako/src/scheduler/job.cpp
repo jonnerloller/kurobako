@@ -6,7 +6,8 @@ namespace sandcastle::concurrency
 	job::job(worker_affinity affinity)
 		: m_running(false)
 		, m_affinity(affinity)
-		, m_ctrs(0)
+		, m_notifylist(0)
+        , m_ctr(0)
 	{
 	}
 
@@ -23,6 +24,14 @@ namespace sandcastle::concurrency
 		return m_affinity;
 	}
 
+    void job::wait()
+    {
+        while (m_ctr > 0)
+        {
+            this_thread::this_worker.run_one();
+        }
+    }
+
 	void job::run()
 	{
 		m_running = true;
@@ -30,7 +39,7 @@ namespace sandcastle::concurrency
 
 		func();
 
-		for (counter* ctr : m_ctrs)
+		for (counter* ctr : m_notifylist)
 		{
 			--(*ctr);
 		}
@@ -47,11 +56,11 @@ namespace sandcastle::concurrency
 	void job::notify(counter * ctr)
 	{
 		if (ctr)
-			m_ctrs.push_back(ctr);
+            m_notifylist.push_back(ctr);
 	}
 
 	void job::reset_notify_list()
 	{
-		m_ctrs.clear();
+        m_notifylist.clear();
 	}
 }

@@ -16,15 +16,12 @@ namespace sandcastle::concurrency
 		batch();
 		batch(job** job, size_t size = 1);
 
-		void wait();
-
 		void add(job** job, size_t size = 1);
 
 	private:
 
 		virtual void func() override;
 
-		counter m_ctr;
 		std::vector<job*> m_jobs;
 
 	};
