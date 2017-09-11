@@ -3,9 +3,9 @@
 
 namespace kurobako::engine
 {
-    void InitEngine();
-	void RunEngine();
-	void DestroyEngine();
+  void InitEngine();
+  void RunEngine();
+  void DestroyEngine();
 }
 
 #endif
