@@ -5,9 +5,12 @@
 #include "log/logger.h"
 #include "types/sizedtypes.h"
 #include "utility/singleton.h"
-#include "jobs/enginejobs.h"
 #include "engine/enginecontext.h"
 #include "engine/engine.h"
+#include "engine/testsystem.h"
+#include "engine/runtime.h"
+#include "scheduler/kernel.h"
+#include "scheduler/batch.h"
 namespace kurobako::engine
 {
     void InitEngine()
@@ -18,6 +21,13 @@ namespace kurobako::engine
 		CREATE_SINGLETON_SCOPED(kurobako::engine, EngineContext);
 		
 		GET_SINGLETON(EngineContext)->m_Engine = memory::HeapNew<Engine>("Engine");
+
+        Runtime* runtime = memory::HeapNew<Runtime>("Runtime1");
+        System* system = memory::HeapNew<TestSystem>("Test System");
+        runtime->AddSystem(system);
+
+
+        GET_SINGLETON(EngineContext)->m_Engine->AddRuntime(runtime);
 	
 #if defined(KBK_DEBUG)
         std::cout << "Initializing Engine(Debug)" << std::endl;
@@ -31,11 +41,18 @@ namespace kurobako::engine
     }
 	void RunEngine()
 	{
-		jobs::BeginMainLoop();
+        using kernel = sandcastle::concurrency::kernel;
+        using job = sandcastle::concurrency::job;
+
+        kernel& scheulder = kernel::get();
+        
+        scheulder.init(GET_SINGLETON(EngineContext)->m_Engine);
 	}
 
 	void DestroyEngine()
 	{
+        memory::HeapDelete(GET_SINGLETON(EngineContext)->m_Engine);
+         
 		DESTROY_SINGLETON_SCOPE(kurobako::log, Logger);
 		kurobako::memory::MemoryManager::DestroyMemoryManager();
 	}

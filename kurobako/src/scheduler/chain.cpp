@@ -18,6 +18,7 @@ namespace sandcastle::concurrency
 	void chain::clear()
 	{
 		m_jobs.clear();
+        m_ctr = 0;
 	}
 
 	void chain::func()

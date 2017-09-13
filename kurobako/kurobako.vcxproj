@@ -197,7 +197,6 @@
     <ClCompile Include="src\engine\testsystem.cpp" />
     <ClCompile Include="src\graphics\hello_triangle.cpp" />
     <ClCompile Include="src\graphics\teststructure.cpp" />
-    <ClCompile Include="src\jobs\runtimejobs.cpp" />
     <ClCompile Include="src\log\logger.cpp" />
     <ClCompile Include="src\memory\circularmemorybuffer.cpp" />
     <ClCompile Include="src\memory\memoryheap.cpp" />
@@ -212,7 +211,6 @@
     <ClCompile Include="src\scheduler\kernel.cpp" />
     <ClCompile Include="src\scheduler\thread.cpp" />
     <ClCompile Include="src\scheduler\worker.cpp" />
-    <ClCompile Include="src\jobs\enginejobs.cpp" />
     <ClCompile Include="src\tests\memorytests.cpp" />
     <ClCompile Include="src\tests\tests.cpp" />
     <ClCompile Include="src\types\nonpersistentstring.cpp" />
@@ -388,7 +386,6 @@
     <ClInclude Include="src\engine\testsystem.h" />
     <ClInclude Include="src\graphics\hello_triangle.h" />
     <ClInclude Include="src\graphics\vkhandle.h" />
-    <ClInclude Include="src\jobs\runtimejobs.h" />
     <ClInclude Include="src\kurobakoconfig.h" />
     <ClInclude Include="src\log\logger.h" />
     <ClInclude Include="src\memory\circularmemorybuffer.h" />
@@ -407,8 +404,6 @@
     <ClInclude Include="src\scheduler\kernel.h" />
     <ClInclude Include="src\scheduler\thread.h" />
     <ClInclude Include="src\scheduler\worker.h" />
-    <ClInclude Include="src\jobs\enginejobs.h" />
-    <ClInclude Include="src\jobs\tasks.h" />
     <ClInclude Include="src\tests\memorytests.h" />
     <ClInclude Include="src\tests\tests.h" />
     <ClInclude Include="src\types\nonpersistentstring.h" />
