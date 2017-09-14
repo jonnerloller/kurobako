@@ -106,6 +106,9 @@
     <ClCompile Include="src\jobs\runtimejobs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\vk_instance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\enginemain.h">
@@ -702,6 +705,15 @@
     <ClInclude Include="src\jobs\runtimejobs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\vk_allocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\vk_device.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\vk_instance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ext\glm\detail\func_common.inl">
@@ -1046,5 +1058,7 @@
     <None Include="ext\glm\gtx\wrap.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="src\graphics\shaders\sample_shader.vert" />
+    <None Include="src\graphics\shaders\sample_shader.frag" />
   </ItemGroup>
 </Project>
