@@ -62,11 +62,10 @@ namespace sandcastle::graphics
 
 		void cleanup()
 		{
-			if (m_object != VK_NULL_HANDLE)
-        {
-          m_deleter(m_object);
-          m_object = VK_NULL_HANDLE;
-        }
+			if (m_object != VK_NULL_HANDLE) {
+				m_deleter(m_object);
+				m_object = VK_NULL_HANDLE;
+			}
 		}
 
 	};
