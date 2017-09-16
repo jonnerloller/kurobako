@@ -14,13 +14,15 @@ namespace sandcastle::concurrency
 	public:
 
 		batch();
-		batch(job** job, size_t size = 1);
+		batch(job** j, size_t size = 1);
 
-		void add(job** job, size_t size = 1);
+		void add(job** j, size_t size = 1);
+        void push_back(job* j);
+        void clear();
 
+    protected:
+        virtual void func() override;
 	private:
-
-		virtual void func() override;
 
 		std::vector<job*> m_jobs;
 

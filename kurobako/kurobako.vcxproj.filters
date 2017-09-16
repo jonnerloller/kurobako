@@ -88,9 +88,6 @@
     <ClCompile Include="src\log\logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\jobs\enginejobs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\engine\testsystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -676,12 +673,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\log\logger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jobs\tasks.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jobs\enginejobs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\system.h">

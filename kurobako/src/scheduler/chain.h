@@ -24,9 +24,10 @@ namespace sandcastle::concurrency
 		void push_back(job*);
 		void clear();
 
-	private:
+    protected:
+        virtual void func() override;
 
-		virtual void func() override;
+	private:
 		
 		std::vector<job*> m_jobs;
 

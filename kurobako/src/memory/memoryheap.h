@@ -2,6 +2,8 @@
 #define MEMORYHEAP_H
 #include "types\sizedtypes.h"
 #include "memorystats.h"
+#include "kurobakoconfig.h"
+#include "memoryconstants.h"
 #include <array>
 namespace kurobako::memory
 {
