@@ -2,7 +2,7 @@
 #define _VK_INSTANCE_h__
 
 #include <vector>
-#include <vulkan/vulkan.h>
+#include <vulkan\vulkan.hpp>
 
 namespace sandcastle::graphics
 {

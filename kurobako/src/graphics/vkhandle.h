@@ -51,7 +51,7 @@ namespace sandcastle::graphics
 		template<typename V>
 		bool operator==(V rhs)
     {
-			return m_object == const_cast<T>(rhs);
+			return m_object == T(rhs);
 		}
 
 	private:
