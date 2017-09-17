@@ -1,10 +1,14 @@
 #include "./instance.h"
 
+#define GLFW_INCLUDE_VULKAN
+#include <GLFW/glfw3.h>
+
 namespace sandcastle::graphics::vk
 {
 
   /*
     Wrapper around vkEnumerateInstanceLayerProperties()
+    https://www.khronos.org/registry/vulkan/specs/1.0/html/vkspec.html#extended-functionality-layers
   */
   std::vector<VkLayerProperties> enumerate_instance_layers()
   {
@@ -22,15 +26,46 @@ namespace sandcastle::graphics::vk
     return properties;
   }
 
+  /*
+    https://www.khronos.org/registry/vulkan/specs/1.0/html/vkspec.html#extended-functionality-extensions
+  */
+  std::vector<VkExtensionProperties>
+  enumerate_instance_extensions(const std::string& layer)
+  {
+    uint32_t                           count;
+    std::vector<VkExtensionProperties> extensions;
 
-  Instance::Instance()
+    const char* layer_name = layer.empty() == true ? nullptr : layer.c_str();
+
+    VkResult result = vkEnumerateInstanceExtensionProperties(layer_name, &count,
+                                                             nullptr);
+    if (result != VK_SUCCESS || count == 0) {
+      return std::vector<VkExtensionProperties>();
+    }
+
+    extensions.resize(count);
+    vkEnumerateInstanceExtensionProperties(layer_name, &count, extensions.data());
+
+    return extensions;
+  }
+
+
+  Instance::Instance(const std::string& app_name,
+                     uint32_t           app_version,
+                     const std::string& engine_name,
+                     uint32_t           engine_version,
+                     uint32_t           api_version)
     : m_instance_info{}
+    , m_app_info{}
     , m_instance{VK_NULL_HANDLE}
   {
     //these are mandatory
     m_instance_info.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     m_instance_info.pNext = nullptr;
     m_instance_info.flags = 0;
+
+    m_app_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+    m_app_info.pNext = nullptr;
   }
 
   Instance::~Instance()

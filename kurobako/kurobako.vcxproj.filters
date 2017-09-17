@@ -97,7 +97,10 @@
     <ClCompile Include="src\engine\runtime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\vk_instance.cpp">
+    <ClCompile Include="src\graphics\vk\instance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -106,9 +109,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\hello_triangle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\vkhandle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\kurobakoconfig.h">
@@ -687,13 +687,19 @@
     <ClInclude Include="src\types\typehelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\vk_allocator.h">
+    <ClInclude Include="src\graphics\vk\allocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\vk_device.h">
+    <ClInclude Include="src\graphics\vk\device.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\graphics\vk_instance.h">
+    <ClInclude Include="src\graphics\vk\instance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\vk\handle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

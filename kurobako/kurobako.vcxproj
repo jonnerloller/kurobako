@@ -196,6 +196,7 @@
     <ClCompile Include="src\engine\runtime.cpp" />
     <ClCompile Include="src\engine\testsystem.cpp" />
     <ClCompile Include="src\graphics\hello_triangle.cpp" />
+    <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\graphics\vk\instance.cpp" />
     <ClCompile Include="src\log\logger.cpp" />
     <ClCompile Include="src\memory\circularmemorybuffer.cpp" />
@@ -385,6 +386,7 @@
     <ClInclude Include="src\engine\system.h" />
     <ClInclude Include="src\engine\testsystem.h" />
     <ClInclude Include="src\graphics\hello_triangle.h" />
+    <ClInclude Include="src\graphics\renderer.h" />
     <ClInclude Include="src\graphics\vk\allocator.h" />
     <ClInclude Include="src\graphics\vk\device.h" />
     <ClInclude Include="src\graphics\vk\instance.h" />

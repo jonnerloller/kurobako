@@ -7,7 +7,8 @@
 namespace sandcastle::graphics::vk
 {
 
-  std::vector<VkLayerProperties> enumerate_instance_layers();
+  std::vector<VkLayerProperties>     enumerate_instance_layers();
+  std::vector<VkExtensionProperties> enumerate_instance_extensions(const std::string& layer = "");
 
   /*
     https://www.khronos.org/registry/vulkan/specs/1.0/html/vkspec.html#initialization-instances
@@ -16,10 +17,14 @@ namespace sandcastle::graphics::vk
   {
   public:
 
-    Instance();
+    Instance(const std::string& app_name       = "",
+             uint32_t           app_version    = 0,
+             const std::string& engine_name    = "",
+             uint32_t           engine_version = 0,
+             uint32_t           api_version    = 0);
     ~Instance();
 
-    /*
+             /*
       Actually create the instance layers
     */
     bool init();
@@ -29,7 +34,8 @@ namespace sandcastle::graphics::vk
   private:
 
     VkInstanceCreateInfo m_instance_info;
-    VkInstance m_instance;
+    VkApplicationInfo    m_app_info;
+    VkInstance           m_instance;
 
   };
 }
