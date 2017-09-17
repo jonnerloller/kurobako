@@ -1,6 +1,6 @@
-#include "vk_instance.h"
+#include "./instance.h"
 
-namespace sandcastle::graphics
+namespace sandcastle::graphics::vk
 {
 
   /*

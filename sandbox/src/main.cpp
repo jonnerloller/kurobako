@@ -8,14 +8,14 @@
 #include "kurobako/src/utility/singleton.h"
 #include "kurobako/src/tests/tests.h"
 
-#include "kurobako\src\graphics\vk_instance.h"
+#include "kurobako\src\graphics\vk\instance.h"
 
 int main()
 {
   auto layers = sandcastle::graphics::enumerate_instance_layers();
 
   for (const auto& elem : layers) {
-    std::cout << elem << std::endl;
+    std::cout << elem.layerName << " " << elem.description << std::endl;
   }
 
   kurobako::engine::InitEngine();

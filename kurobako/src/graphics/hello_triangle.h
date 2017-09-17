@@ -14,10 +14,13 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
-#include "vkhandle.h"
+#include "vk\handle.h"
 
 namespace sandcastle::graphics
 {
+  
+  template<typename T>
+  using vkhandle = vk::vkhandle<T>;
 
   struct uniform_buffer_object
   {

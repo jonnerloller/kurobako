@@ -3,7 +3,7 @@
 
 #include <vulkan/vulkan.h>
 
-namespace sandcastle::graphics
+namespace sandcastle::graphics::vk
 {
 
 }

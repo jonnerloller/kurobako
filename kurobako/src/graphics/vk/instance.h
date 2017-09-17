@@ -4,7 +4,7 @@
 #include <vector>
 #include <vulkan\vulkan.hpp>
 
-namespace sandcastle::graphics
+namespace sandcastle::graphics::vk
 {
 
   std::vector<VkLayerProperties> enumerate_instance_layers();
@@ -20,9 +20,11 @@ namespace sandcastle::graphics
     ~Instance();
 
     /*
-      Actually creat
+      Actually create the instance layers
     */
     bool init();
+
+    bool enable_layer(const std::string& layer_name);
 
   private:
 

@@ -3,7 +3,7 @@
 
 #include <vulkan/vulkan.h>
 
-namespace sandcastle::graphics
+namespace sandcastle::graphics::vk
 {
   // TODO:
   // https://www.khronos.org/registry/vulkan/specs/1.0/html/vkspec.html#memory-allocation

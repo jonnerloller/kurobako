@@ -39,6 +39,7 @@ namespace kurobako::engine
 		std::cout << "Initializing Engine(Final)" << std::endl;
 #endif
 	}
+
 	void RunEngine()
 	{
 		using kernel = sandcastle::concurrency::kernel;
