@@ -64,8 +64,15 @@ namespace sandcastle::graphics::vk
     m_instance_info.pNext = nullptr;
     m_instance_info.flags = 0;
 
-    m_app_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    m_app_info.pNext = nullptr;
+    m_app_info.sType              = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+    m_app_info.pNext              = nullptr;
+    m_app_info.pApplicationName   = app_name.c_str();
+    m_app_info.applicationVersion = app_version;
+    m_app_info.pEngineName        = engine_name.c_str();
+    m_app_info.engineVersion      = engine_version;
+    m_app_info.apiVersion         = api_version;
+
+    m_instance_info.pApplicationInfo = &m_app_info;
   }
 
   Instance::~Instance()
