@@ -57,7 +57,7 @@ namespace sandcastle::graphics::vk
                      uint32_t           api_version)
     : m_instance_info{}
     , m_app_info{}
-    , m_instance{VK_NULL_HANDLE}
+    , m_instance{}
   {
     //these are mandatory
     m_instance_info.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
@@ -80,7 +80,12 @@ namespace sandcastle::graphics::vk
     vkDestroyInstance(m_instance, nullptr);
   }
 
-  bool Instance::init()
+  Instance::operator VkInstance&() const
+  {
+    return m_instance;
+  }
+
+  bool Instance::create()
   {
     VkResult result = vkCreateInstance(&m_instance_info, nullptr, &m_instance);
     return result == VK_SUCCESS ? true : false;

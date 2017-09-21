@@ -1,6 +1,8 @@
 #ifndef _RENDERER_h__
 #define _RENDERER_h__
 
+#include "scheduler\job.h"
+
 namespace sandcastle::graphics
 {
   void test_graphics_system();
@@ -8,7 +10,7 @@ namespace sandcastle::graphics
   /*
     Impl TBD
   */
-  class Renderer
+  class Renderer : public concurrency::job
   {
   public:
 

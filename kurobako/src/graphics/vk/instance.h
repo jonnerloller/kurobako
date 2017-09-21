@@ -22,12 +22,15 @@ namespace sandcastle::graphics::vk
              const std::string& engine_name    = "",
              uint32_t           engine_version = 0,
              uint32_t           api_version    = 0);
+    Instance(const VkApplicationInfo& app_info);
     ~Instance();
 
-             /*
+    operator VkInstance&() const;
+
+    /*
       Actually create the instance layers
     */
-    bool init();
+    bool create();
 
     bool enable_layer(const std::string& layer_name);
 
@@ -35,7 +38,7 @@ namespace sandcastle::graphics::vk
 
     VkInstanceCreateInfo m_instance_info;
     VkApplicationInfo    m_app_info;
-    VkInstance           m_instance;
+    VkInstance           m_instance = VK_NULL_HANDLE;
 
   };
 }
