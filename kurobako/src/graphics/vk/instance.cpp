@@ -50,7 +50,7 @@ namespace sandcastle::graphics::vk
   }
 
 
-  Instance::Instance(const std::string& app_name,
+  instance::instance(const std::string& app_name,
                      uint32_t           app_version,
                      const std::string& engine_name,
                      uint32_t           engine_version,
@@ -75,17 +75,17 @@ namespace sandcastle::graphics::vk
     m_instance_info.pApplicationInfo = &m_app_info;
   }
 
-  Instance::~Instance()
+  instance::~instance()
   {
     vkDestroyInstance(m_instance, nullptr);
   }
 
-  Instance::operator VkInstance&() const
+  instance::operator VkInstance&() const
   {
     return m_instance;
   }
 
-  bool Instance::create()
+  bool instance::create()
   {
     VkResult result = vkCreateInstance(&m_instance_info, nullptr, &m_instance);
     return result == VK_SUCCESS ? true : false;

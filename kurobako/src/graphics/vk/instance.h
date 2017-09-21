@@ -13,17 +13,17 @@ namespace sandcastle::graphics::vk
   /*
     https://www.khronos.org/registry/vulkan/specs/1.0/html/vkspec.html#initialization-instances
   */
-  class Instance
+  class instance
   {
   public:
 
-    Instance(const std::string& app_name       = "",
+    instance(const std::string& app_name       = "",
              uint32_t           app_version    = 0,
              const std::string& engine_name    = "",
              uint32_t           engine_version = 0,
              uint32_t           api_version    = 0);
-    Instance(const VkApplicationInfo& app_info);
-    ~Instance();
+    instance(const VkApplicationInfo& app_info);
+    ~instance();
 
     operator VkInstance&() const;
 
