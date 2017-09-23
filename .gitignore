@@ -11,7 +11,17 @@ CMakeFiles/
 *.cmake
 CMakeCache.txt
 
+**/tags
+*.#*
+*.log
+*.enc
+*.obj
+
 # visual studio things
 .vs/
 *vcx*
 *.sln
+*.tlog
+*.pdb
+*.idb
+
