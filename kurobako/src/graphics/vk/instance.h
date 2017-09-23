@@ -7,8 +7,12 @@
 namespace sandcastle::graphics::vk
 {
 
-  std::vector<VkLayerProperties>     enumerate_instance_layers();
-  std::vector<VkExtensionProperties> enumerate_instance_extensions(const std::string& layer = "");
+  // TODO: Hide these within wrappers, possibly within instance
+  std::vector<VkLayerProperties>
+  enumerate_instance_layers();
+
+  std::vector<VkExtensionProperties>
+  enumerate_instance_extensions(const std::string& layer = "");
 
   /*
     https://www.khronos.org/registry/vulkan/specs/1.0/html/vkspec.html#initialization-instances
@@ -17,27 +21,21 @@ namespace sandcastle::graphics::vk
   {
   public:
 
-    instance(const std::string& app_name       = "",
-             uint32_t           app_version    = 0,
-             const std::string& engine_name    = "",
-             uint32_t           engine_version = 0,
-             uint32_t           api_version    = 0);
-    instance(const VkApplicationInfo& app_info);
+    instance();
     ~instance();
 
-    operator VkInstance&() const;
+    operator VkInstance();
+    operator VkInstance() const;
 
-    /*
-      Actually create the instance layers
-    */
-    bool create();
-
+    // TODO:
     bool enable_layer(const std::string& layer_name);
 
   private:
 
-    VkInstanceCreateInfo m_instance_info;
-    VkApplicationInfo    m_app_info;
+    std::vector<const char*> get_glfw_extensions();
+
+    // VkInstanceCreateInfo m_instance_info;
+    // VkApplicationInfo    m_app_info;
     VkInstance           m_instance = VK_NULL_HANDLE;
 
   };

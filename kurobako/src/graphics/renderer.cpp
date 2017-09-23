@@ -19,8 +19,6 @@ namespace sandcastle::graphics
     }
 
     vk::instance instance;
-    instance.create();
-
 
   }
 }

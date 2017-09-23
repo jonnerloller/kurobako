@@ -198,6 +198,8 @@
     <ClCompile Include="src\graphics\hello_triangle.cpp" />
     <ClCompile Include="src\graphics\renderer.cpp" />
     <ClCompile Include="src\graphics\vk\instance.cpp" />
+    <ClCompile Include="src\graphics\vk\logical_device.cpp" />
+    <ClCompile Include="src\graphics\vk\physical_device.cpp" />
     <ClCompile Include="src\log\logger.cpp" />
     <ClCompile Include="src\memory\circularmemorybuffer.cpp" />
     <ClCompile Include="src\memory\memoryheap.cpp" />
@@ -391,6 +393,8 @@
     <ClInclude Include="src\graphics\vk\device.h" />
     <ClInclude Include="src\graphics\vk\instance.h" />
     <ClInclude Include="src\graphics\vk\handle.h" />
+    <ClInclude Include="src\graphics\vk\logical_device.h" />
+    <ClInclude Include="src\graphics\vk\physical_device.h" />
     <ClInclude Include="src\kurobakoconfig.h" />
     <ClInclude Include="src\log\logger.h" />
     <ClInclude Include="src\memory\circularmemorybuffer.h" />
