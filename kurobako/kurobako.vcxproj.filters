@@ -106,7 +106,7 @@
     <ClCompile Include="src\graphics\vk\physical_device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\vk\logical_device.cpp">
+    <ClCompile Include="src\graphics\vk\device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -709,9 +709,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\vk\physical_device.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\vk\logical_device.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

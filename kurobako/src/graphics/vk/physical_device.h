@@ -18,6 +18,9 @@ namespace sandcastle::graphics::vk
     ~physical_device() = default;
     physical_device& operator=(const physical_device& rhs) = default;
 
+    VkPhysicalDeviceProperties properties() const;
+    std::vector<VkQueueFamilyProperties> queue_properties() const;
+
     operator VkPhysicalDevice();
     operator VkPhysicalDevice() const;
 

@@ -2,6 +2,7 @@
 #define _VK_INSTANCE_h__
 
 #include <vector>
+#include <memory>
 #include <vulkan\vulkan.hpp>
 
 namespace sandcastle::graphics::vk
@@ -27,7 +28,7 @@ namespace sandcastle::graphics::vk
     operator VkInstance();
     operator VkInstance() const;
 
-    // TODO:
+    // TODO: work on this
     bool enable_layer(const std::string& layer_name);
 
   private:

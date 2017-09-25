@@ -18,6 +18,29 @@ namespace sandcastle::graphics::vk
     return m_physical_device;
   }
 
+  VkPhysicalDeviceProperties physical_device::properties() const
+  {
+    VkPhysicalDeviceProperties props;
+    vkGetPhysicalDeviceProperties(m_physical_device, &props);
+    return props;
+  }
+
+  std::vector<VkQueueFamilyProperties> physical_device::queue_properties() const
+  {
+    uint32_t count = 0;
+    vkGetPhysicalDeviceQueueFamilyProperties(m_physical_device,
+                                             &count,
+                                             nullptr);
+    if (count == 0) {
+      return std::vector<VkQueueFamilyProperties>();
+    }
+    std::vector<VkQueueFamilyProperties> properties(count);
+    vkGetPhysicalDeviceQueueFamilyProperties(m_physical_device,
+                                             &count,
+                                             properties.data());
+    return properties;
+  }
+
   /*
     returns the number of physical devices
   */
