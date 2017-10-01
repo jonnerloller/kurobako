@@ -11,7 +11,7 @@ namespace sandcastle::graphics::vk
   public:
 
     device(const physical_device& phy_dev);
-    ~device() = default;
+    ~device();
     device& operator=(const device& rhs) = default;
 
     operator VkDevice();
