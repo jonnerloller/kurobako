@@ -9,7 +9,8 @@ namespace kurobako::memory
     MemoryManager::MemoryManager(uint64 size)
     :	m_memory(size),
 		m_stringbuffer(m_memory,STRING_BUFFER_SIZE),
-		m_heap(m_memory,HEAP_BUFFER_SIZE)
+		m_heap(m_memory,HEAP_BUFFER_SIZE),
+        m_buddyheap(m_memory, BUDDY_HEAP_BUFFER_SIZE)
     {
 
     }

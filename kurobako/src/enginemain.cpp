@@ -9,7 +9,7 @@ namespace kurobako::engine
 {
     void InitEngine()
     {
-        constexpr uint64 allocation_size = static_cast<uint64>(2) << 30;
+        constexpr uint64 allocation_size = static_cast<uint64>(4) << 30;
 	    kurobako::memory::MemoryManager::InitializeMemoryManager(allocation_size);
 	    CREATE_SINGLETON_SCOPED(kurobako::log, Logger);
 	

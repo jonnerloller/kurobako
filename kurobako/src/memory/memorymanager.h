@@ -7,6 +7,7 @@
 #include "circularmemorybuffer.h"
 #include "memoryheap.h"
 #include "memoryconstants.h"
+#include "arrayheap.h"
 #include <utility>
 namespace kurobako::memory
 {
@@ -16,7 +17,8 @@ namespace kurobako::memory
         enum
         {
             STRING_BUFFER_SIZE = 1 << 20,
-			HEAP_BUFFER_SIZE = 1 << 30
+			HEAP_BUFFER_SIZE = 1 << 30,
+            BUDDY_HEAP_BUFFER_SIZE = 1 << 30
         };
         
 
@@ -40,8 +42,11 @@ namespace kurobako::memory
         MemoryStack m_memory;
         CircularMemoryBuffer m_stringbuffer;
 
-		//Heap should definitely come last. seriously.
-		MemoryHeap m_heap;
+        //Heaps should definitely come last. seriously.
+        MemoryHeap m_heap;
+        ArrayHeap m_buddyheap;
+		
+		
     };
 
 	template <typename T>

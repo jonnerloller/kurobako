@@ -1,6 +1,7 @@
 #ifndef ARRAYHEAP_H
 #define ARRAYHEAP_H
 #include "types/sizedtypes.h"
+#include <array>
 namespace kurobako::memory
 {
     class MemoryStack;
@@ -15,6 +16,10 @@ namespace kurobako::memory
         void  Deallocate();
         
     private:
+        enum
+        {
+            HIGHEST_ORDER = 32,
+        };
 
         struct ArrayHeapEntry
         {
@@ -25,15 +30,18 @@ namespace kurobako::memory
         };
 
         static ArrayHeapEntry* AllocateArrayHeapEntry(uint64 base, uint64 size);
+        static ArrayHeapEntry* SplitArrayHeap(ArrayHeapEntry* node);
 
         void Initialize();
         void Destroy();
         
         
+        bool m_destroyed;
         uint64 m_size;
         atomic_uintptr m_base;
-        ArrayHeapEntry* m_root;
+        ArrayHeapEntry m_root;
         MemoryStack& m_allocator;
+        std::array<ArrayHeapEntry*, HIGHEST_ORDER> m_free_list;
 
         friend class MemoryManager;
     };

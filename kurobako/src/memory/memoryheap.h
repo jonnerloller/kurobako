@@ -5,6 +5,7 @@
 #include "kurobakoconfig.h"
 #include "memoryconstants.h"
 #include <array>
+#include <assert.h>
 namespace kurobako::memory
 {
 	class MemoryStack;
@@ -47,11 +48,12 @@ namespace kurobako::memory
             } m_btm;
         };
 	private:
+
+	public:
         enum
         {
             NUM_MAX_HEAP_TYPES = 256,
         };
-	public:
         static atomic_uint32 m_unique_allocation_sizes;
 
 
@@ -105,6 +107,7 @@ namespace kurobako::memory
     uint32 GetHeapIndex()
     {
         static uint32 index = kurobako::memory::MemoryHeap::m_unique_allocation_sizes.fetch_add(1);
+        assert(index < MemoryHeap::NUM_MAX_HEAP_TYPES);
         return index;
     }
 
