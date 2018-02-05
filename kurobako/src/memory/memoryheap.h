@@ -2,6 +2,8 @@
 #define MEMORYHEAP_H
 #include "types\sizedtypes.h"
 #include "memorystats.h"
+#include "kurobakoconfig.h"
+#include "memoryconstants.h"
 #include <array>
 namespace kurobako::memory
 {
@@ -61,7 +63,11 @@ namespace kurobako::memory
         static void SetHeaderAllocatePattern(void* ptr, cstr tag)
         {
             #ifdef KBK_MEMTAG
-                uintptr addr_of_header = reinterpret_cast<uintptr>(ptr) - sizeof(MemoryHeader);
+            uintptr offset = sizeof(MemoryHeader);
+            #ifdef MEMORY_ALIGNMENT_ENABLED
+                offset = AlignSizeTo16(offset);
+            #endif
+                uintptr addr_of_header = reinterpret_cast<uintptr>(ptr) - offset;
                 MemoryHeader* header = reinterpret_cast<MemoryHeader*>(addr_of_header);
                 header->m_top.used_when_allocated = MemoryHeader::MemoryPattern::MEMORY_PATTERN_ALLOCATED;
                 header->m_btm.userdata = tag;
@@ -71,7 +77,11 @@ namespace kurobako::memory
         static void SetHeaderDeallocatePattern(void* ptr)
         {
             #ifdef KBK_MEMTAG
-		    uintptr addr_of_header = reinterpret_cast<uintptr>(ptr) - sizeof(MemoryHeader);
+            uintptr offset = sizeof(MemoryHeader);
+#ifdef MEMORY_ALIGNMENT_ENABLED
+            offset = AlignSizeTo16(offset);
+#endif
+		    uintptr addr_of_header = reinterpret_cast<uintptr>(ptr) - offset;
 		    MemoryHeader* header = reinterpret_cast<MemoryHeader*>(addr_of_header);
 		    header->m_top.nextdata = 0;
 		    header->m_btm.used_when_freed = MemoryHeader::MemoryPattern::MEMORY_PATTERN_DEALLOCATED;

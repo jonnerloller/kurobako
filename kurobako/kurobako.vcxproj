@@ -74,29 +74,29 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)ext;</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ProjectDir)lib;</LibraryPath>
-    <OutDir>$(SolutionDir)\Output</OutDir>
-    <IntDir>$(SolutionDir)\Output\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)\Output\</OutDir>
+    <IntDir>$(SolutionDir)\Output\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)ext;</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ProjectDir)lib;</LibraryPath>
-    <OutDir>$(SolutionDir)\Output</OutDir>
-    <IntDir>$(SolutionDir)\Output\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)\Output\</OutDir>
+    <IntDir>$(SolutionDir)\Output\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)ext;</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ProjectDir)lib;</LibraryPath>
-    <OutDir>$(SolutionDir)\Output</OutDir>
-    <IntDir>$(SolutionDir)\Output\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)\Output\</OutDir>
+    <IntDir>$(SolutionDir)\Output\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)ext;</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ProjectDir)lib;</LibraryPath>
-    <OutDir>$(SolutionDir)\Output</OutDir>
-    <IntDir>$(SolutionDir)\Output\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)\Output\</OutDir>
+    <IntDir>$(SolutionDir)\Output\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -194,6 +194,7 @@
     <ClCompile Include="src\graphics\hello_triangle.cpp" />
     <ClCompile Include="src\graphics\teststructure.cpp" />
     <ClCompile Include="src\log\logger.cpp" />
+    <ClCompile Include="src\memory\arrayheap.cpp" />
     <ClCompile Include="src\memory\circularmemorybuffer.cpp" />
     <ClCompile Include="src\memory\memoryheap.cpp" />
     <ClCompile Include="src\memory\memorymanager.cpp" />
@@ -379,6 +380,7 @@
     <ClInclude Include="src\graphics\vkhandle.h" />
     <ClInclude Include="src\kurobakoconfig.h" />
     <ClInclude Include="src\log\logger.h" />
+    <ClInclude Include="src\memory\arrayheap.h" />
     <ClInclude Include="src\memory\circularmemorybuffer.h" />
     <ClInclude Include="src\memory\memoryconstants.h" />
     <ClInclude Include="src\memory\memoryheap.h" />

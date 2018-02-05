@@ -4,9 +4,8 @@
 namespace kurobako::memory
 {
     static const uint32 DEFAULT_MEMORY_ALIGNMENT_SIZE = 16;
-#ifdef KBK_DEBUG
-	#define KBK_MEMTAG
-#endif
+
+    #define KBK_MEMTAG
 	#define MEMORY_ALIGNMENT_ENABLED
 
 	inline uint64 AlignAddressTo(uintptr address, uint64 alignment)

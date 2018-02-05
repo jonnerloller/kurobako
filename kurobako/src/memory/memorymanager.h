@@ -56,7 +56,7 @@ namespace kurobako::memory
 	T* HeapNew(cstr memtag)
 	{
 		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)>()));
-		MemoryHeap::SetHeaderAllocatePattern(retcstr);
+		MemoryHeap::SetHeaderAllocatePattern(ret,memtag);
 		ret = new(ret)T();
 		return ret;
 	}

@@ -15,7 +15,10 @@ namespace kurobako::memory
 		m_top(m_base.load()),
 		m_destroyed(false)
 	{
-
+        for (auto &i : m_heaplist)
+        {
+            i = 0;
+        }
 	}
 
     MemoryHeap::~MemoryHeap()
@@ -74,10 +77,13 @@ namespace kurobako::memory
 			// We only add the wierd memory header thing if we care about mem tagging.
 			uintptr offset = 0;
 		#if defined(KBK_MEMTAG)
-			size += sizeof(MemoryHeader);
-			offset = sizeof(MemoryHeader);
-		#endif	
-		#if defined(KBK_DEBUG)||defined(KBK_RELEASE)
+            offset = sizeof(MemoryHeader);
+            #ifdef MEMORY_ALIGNMENT_ENABLED
+                offset = AlignSizeTo16(offset);
+            #endif
+			size += offset;
+        #endif
+        #if defined(KBK_DEBUG) || defined(KBK_RELEASE)
 			uintptr newtop = m_top + size;
 			uintptr maxtop = m_base + m_size;
 			assert(newtop < maxtop);
@@ -100,7 +106,12 @@ namespace kurobako::memory
     {
 		uint64 offset = 0;
 		#if defined(KBK_MEMTAG)
-		offset += sizeof(MemoryHeader);
+		offset = sizeof(MemoryHeader);
+
+        #ifdef MEMORY_ALIGNMENT_ENABLED
+        offset = AlignSizeTo16(offset);
+        #endif
+
 		#endif	
 		// This is relatively simple compared to ALLOC!
 		// because..

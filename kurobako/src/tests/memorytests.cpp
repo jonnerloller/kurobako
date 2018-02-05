@@ -2,6 +2,7 @@
 #include "types/nonpersistentstring.h"
 #include "memory/memorymanager.h"
 #include "log/logger.h"
+#include <iostream>
 namespace kurobako::tests
 {
 	bool RunNonPersistentStringTests()
@@ -83,6 +84,20 @@ namespace kurobako::tests
 				LOG_INFO(kurobako::NonPersistentString("NonPersistentString::Passed size tests!."), 5);
 			}
 		}
+
+        // Test 4.
+        {
+            int* arr[10];
+            for (int i = 0; i < 10; ++i)
+            {
+                arr[i] = kurobako::memory::HeapNew<int>("TestInt");
+                *arr[i] = i;
+            }
+            for (int i = 0; i < 10; ++i)
+            {
+                std::cout << *arr[i] << " ";
+            }
+        }
 
 		return true;
 	}

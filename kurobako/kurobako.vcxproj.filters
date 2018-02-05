@@ -88,6 +88,9 @@
     <ClCompile Include="src\log\logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\memory\arrayheap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\enginemain.h">
@@ -655,6 +658,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\log\logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory\arrayheap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
