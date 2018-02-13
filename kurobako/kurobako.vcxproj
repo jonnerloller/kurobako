@@ -194,8 +194,8 @@
     <ClCompile Include="src\graphics\hello_triangle.cpp" />
     <ClCompile Include="src\graphics\teststructure.cpp" />
     <ClCompile Include="src\log\logger.cpp" />
-    <ClCompile Include="src\memory\arrayheap.cpp" />
-    <ClCompile Include="src\memory\circularmemorybuffer.cpp" />
+    <ClCompile Include="src\memory\memoryblockheap.cpp" />
+    <ClCompile Include="src\memory\circularbuffer.cpp" />
     <ClCompile Include="src\memory\memoryheap.cpp" />
     <ClCompile Include="src\memory\memorymanager.cpp" />
     <ClCompile Include="src\memory\memorystack.cpp" />
@@ -380,8 +380,8 @@
     <ClInclude Include="src\graphics\vkhandle.h" />
     <ClInclude Include="src\kurobakoconfig.h" />
     <ClInclude Include="src\log\logger.h" />
-    <ClInclude Include="src\memory\arrayheap.h" />
-    <ClInclude Include="src\memory\circularmemorybuffer.h" />
+    <ClInclude Include="src\memory\memoryblockheap.h" />
+    <ClInclude Include="src\memory\circularbuffer.h" />
     <ClInclude Include="src\memory\memoryconstants.h" />
     <ClInclude Include="src\memory\memoryheap.h" />
     <ClInclude Include="src\memory\memorymanager.h" />

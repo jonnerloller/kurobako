@@ -6,12 +6,12 @@
 #include <assert.h>
 namespace kurobako::memory
 {
-    atomic_uint32 MemoryHeap::m_unique_allocation_sizes = 0;
+    atomic_uint32 heap::m_unique_allocation_sizes = 0;
 
-	MemoryHeap::MemoryHeap(MemoryStack& allocator, uint64 size)
+	heap::heap(stack& allocator, uint64 size)
 		: m_allocator(allocator),
 		m_size(size),
-		m_base(reinterpret_cast<uintptr>(allocator.Allocate(size))),
+		m_base(reinterpret_cast<uintptr>(allocator.allocate(size))),
 		m_top(m_base.load()),
 		m_destroyed(false)
 	{
@@ -21,25 +21,25 @@ namespace kurobako::memory
         }
 	}
 
-    MemoryHeap::~MemoryHeap()
+    heap::~heap()
     {
 		Destroy();
     }
 
-	void MemoryHeap::Destroy()
+	void heap::Destroy()
 	{
 		if (m_destroyed == false)
 		{
 			uintptr temp = m_base;
-			m_allocator.Deallocate(reinterpret_cast<void*>(temp), m_size);
+			m_allocator.deallocate(reinterpret_cast<void*>(temp), m_size);
 		}
 	}
 
-    void* MemoryHeap::Allocate(uint64 size,uint32 heapid)
+    void* heap::Allocate(uint64 size,uint32 heapid)
     {
-#ifdef MEMORY_ALIGNMENT_ENABLED
-		size = AlignSizeTo16(size);
-#endif
+
+		size = align_to_16(size);
+
         void* allocated_memory = nullptr;
 		uintptr rep = 0;
 		uintptr address_of_next_data = 0;
@@ -60,7 +60,7 @@ namespace kurobako::memory
             //m_heaplist[heapid]
             //MemoryHeader.m_top----->  MemoryHeader
 
-            MemoryHeader* header = reinterpret_cast<MemoryHeader*>(rep);
+            block_header* header = reinterpret_cast<block_header*>(rep);
 			address_of_next_data = header->m_top.nextdata;
         
 			// so now we basically want to swap.
@@ -77,10 +77,8 @@ namespace kurobako::memory
 			// We only add the wierd memory header thing if we care about mem tagging.
 			uintptr offset = 0;
 		#if defined(KBK_MEMTAG)
-            offset = sizeof(MemoryHeader);
-            #ifdef MEMORY_ALIGNMENT_ENABLED
-                offset = AlignSizeTo16(offset);
-            #endif
+            offset = sizeof(block_header);
+            offset = align_to_16(offset);
 			size += offset;
         #endif
         #if defined(KBK_DEBUG) || defined(KBK_RELEASE)
@@ -88,7 +86,7 @@ namespace kurobako::memory
 			uintptr maxtop = m_base + m_size;
 			assert(newtop < maxtop);
 		#endif	
-			m_stats.Allocate(size);
+			m_stats.allocate(size);
 			uintptr temp = m_top.fetch_add(size);
 			memory_from_stack = reinterpret_cast<void*>(temp + offset);
 			// reminder in case i want to do something here...
@@ -102,15 +100,12 @@ namespace kurobako::memory
         return memory_from_free_list;
     }
 
-	void MemoryHeap::Deallocate(void* obj, uint32 heapid)
+	void heap::Deallocate(void* obj, uint32 heapid)
     {
 		uint64 offset = 0;
 		#if defined(KBK_MEMTAG)
-		offset = sizeof(MemoryHeader);
-
-        #ifdef MEMORY_ALIGNMENT_ENABLED
-        offset = AlignSizeTo16(offset);
-        #endif
+        offset = sizeof(block_header);
+        offset = align_to_16(offset);
 
 		#endif	
 		// This is relatively simple compared to ALLOC!
@@ -126,7 +121,7 @@ namespace kurobako::memory
 			// could be 0. But it doesn't matter.
 			//In fact we don't even need this.
 			//MemoryHeader* header = reinterpret_cast<MemoryHeader*>(rep);
-			MemoryHeader* new_header = reinterpret_cast<MemoryHeader*>(address_of_next_data);
+			block_header* new_header = reinterpret_cast<block_header*>(address_of_next_data);
 			new_header->m_top.nextdata = rep;			
 		} while (!m_heaplist[heapid].compare_exchange_weak(rep, address_of_next_data));
     }

@@ -4,19 +4,19 @@
 namespace kurobako::memory
 {
 
-	struct MemoryStats
+	struct stats
 	{
 		#if !defined(KBK_FINAL) && !defined(KBK_PROFILE)
 		uint64 m_sizeallocated;
 		uint64 m_numallocations;
 		uint64 m_numdeallocations;
 		uint64 m_numcurrentallocated;
-		MemoryStats();
-		~MemoryStats();
-		void Allocate(uint64 size);
+		stats();
+		~stats();
+		void allocate(uint64 size);
 		void Deallocate(uint64 size);
 		#else
-		void Allocate(uint64 size);
+		void allocate(uint64 size);
 		void Deallocate(uint64 size);
 		#endif	
 		

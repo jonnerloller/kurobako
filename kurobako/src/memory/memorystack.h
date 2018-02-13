@@ -6,54 +6,29 @@
 #include "memorystats.h"
 namespace kurobako::memory
 {
-
-    class MemoryStack
+    class stack
     {
         public:
-            void* Allocate(uint64 size);
+            void* allocate(uint64 size);
+			void deallocate(void* obj,uint64 size);
 
-			void Deallocate(void* obj,uint64 size);
-		
-			void Reset();
+			void destroy();
 
-			void Destroy();
+			stack(uint64 size);
+			stack(const stack& rhs) = delete;
+			stack(stack&& rhs);
+			stack& operator =(stack&& rhs);
+            ~stack();
 
-			MemoryStack(uint64 size);
-			MemoryStack(const MemoryStack& rhs) = delete;
-			MemoryStack(MemoryStack&& rhs);
-			MemoryStack& operator =(MemoryStack&& rhs);
-            ~MemoryStack();
-
-			const MemoryStats& GetStats() { return m_stats; }
+			const stats& GetStats() { return m_stats; }
 			uint64 GetSize() { return m_size; }
         private:
             atomic_uintptr m_base;
             atomic_uintptr m_top;
 			uint64 m_size;
 
-			MemoryStats m_stats;
+			stats m_stats;
     };
-
-	template <typename T>
-	T* Allocate(MemoryStack& stack, uint64 num)
-	{
-		T* ret = static_cast<T*>(stack.Allocate(sizeof(T)));
-		T* iter = ret;
-		do
-		{
-			iter = new(iter) T();
-			++iter;
-		}(while --num != 0);
-		return ret;
-	}
-
-	template <typename T>
-	T* Allocate(MemoryStack& stack, const T& obj)
-	{
-		T* ret = static_cast<T*>(stack.Allocate(sizeof(T)));
-		ret = new(ret) T(obj);
-		return ret;
-	}
 }
 
 #endif

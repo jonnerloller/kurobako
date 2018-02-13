@@ -12,7 +12,7 @@ namespace kurobako::tests
 			// Test 1.
 			kurobako::NonPersistentString testStr = kurobako::NonPersistentString("This string should be gone");
 
-			uint64 totalBytes = memory::MemoryManager::STRING_BUFFER_SIZE;
+			uint64 totalBytes = memory::memory_manager::STRING_BUFFER_SIZE;
 			for (int i = 0; i < totalBytes - testStr.GetLength() - 1; ++i)
 			{
 				kurobako::NonPersistentString str = kurobako::NonPersistentString("", i);
@@ -33,13 +33,13 @@ namespace kurobako::tests
 			}
 		}
 
-		memory::MemoryManager::GetMemoryManager().GetStringBuffer().Reset();
+		memory::memory_manager::GetMemoryManager().GetStringBuffer().reset();
 
 		// Test 2.
 		{
 			kurobako::NonPersistentString testStr = kurobako::NonPersistentString("This string should be be here");
 
-			uint64 totalBytes = memory::MemoryManager::STRING_BUFFER_SIZE;
+			uint64 totalBytes = memory::memory_manager::STRING_BUFFER_SIZE;
 			for (int i = 0; i < totalBytes - testStr.GetLength()*2 -2; ++i)
 			{
 				kurobako::NonPersistentString str = kurobako::NonPersistentString("", i);
@@ -64,7 +64,7 @@ namespace kurobako::tests
 		{
 			kurobako::NonPersistentString testStr = kurobako::NonPersistentString("This string should be wiped!!");
 
-			uint64 totalBytes = memory::MemoryManager::STRING_BUFFER_SIZE;
+			uint64 totalBytes = memory::memory_manager::STRING_BUFFER_SIZE;
 			for (int i = 0; i < totalBytes - testStr.GetLength() * 2 - 1 ; ++i)
 			{
 				kurobako::NonPersistentString str = kurobako::NonPersistentString(" ", i);

@@ -3,22 +3,22 @@
 #include "types/sizedtypes.h"
 namespace kurobako::memory
 {
-    class MemoryStack;
+    class stack;
 
     // Legit this should only be used for non persistant chars.
-    class CircularMemoryBuffer
+    class circular_buffer
     {
         public:
-		CircularMemoryBuffer(MemoryStack& allocator, uint64 size);
-        ~CircularMemoryBuffer();
-        void Destroy();
+		circular_buffer(stack& allocator, uint64 size);
+        ~circular_buffer();
+        void destroy();
 
-		void Reset();
-        void* Allocate(uint64 size);
+		void reset();
+        void* allocate(uint64 size);
         // Note that there's no Deallocate function.
         private:
 
-        MemoryStack& m_allocator;
+        stack& m_allocator;
         uint64 m_size;
         atomic_uintptr m_base;
         atomic_uintptr m_current;

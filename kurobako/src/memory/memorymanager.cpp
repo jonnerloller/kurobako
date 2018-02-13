@@ -5,8 +5,8 @@ namespace kurobako::memory
 {
 	static const uint32 alignment_size = 16;
 	//DECLARE_SINGLETON(MemoryManager);
-	DEFINE_SINGLETON(MemoryManager);
-    MemoryManager::MemoryManager(uint64 size)
+	DEFINE_SINGLETON(memory_manager);
+    memory_manager::memory_manager(uint64 size)
     :	m_memory(size),
 		m_stringbuffer(m_memory,STRING_BUFFER_SIZE),
 		m_heap(m_memory,HEAP_BUFFER_SIZE),
@@ -15,48 +15,48 @@ namespace kurobako::memory
 
     }
 
-    void MemoryManager::InitializeMemoryManager(uint64 size)
+    void memory_manager::InitializeMemoryManager(uint64 size)
     {
-       static MemoryManager *instance = static_cast<MemoryManager*>(_aligned_malloc(sizeof(MemoryManager),DEFAULT_MEMORY_ALIGNMENT_SIZE));
-	   instance = new(instance)MemoryManager(size);
-       SET_SINGLETON(MemoryManager,instance);
+       static memory_manager *instance = static_cast<memory_manager*>(_aligned_malloc(sizeof(memory_manager),DEFAULT_MEMORY_ALIGNMENT_SIZE));
+	   instance = new(instance)memory_manager(size);
+       SET_SINGLETON(memory_manager,instance);
     }
 
-	void* MemoryManager::AllocateSingleton(uint64 id,uint64 size)
+	void* memory_manager::AllocateSingleton(uint64 id,uint64 size)
 	{
-		return m_memory.Allocate(size);
+		return m_memory.allocate(size);
 	}
 
-	void MemoryManager::DeallocateSingleton(void* obj, uint64 size)
+	void memory_manager::DeallocateSingleton(void* obj, uint64 size)
 	{
-		m_memory.Deallocate(obj, size);
+		m_memory.deallocate(obj, size);
 	}
 
-	MemoryManager& MemoryManager::GetMemoryManager()
+	memory_manager& memory_manager::GetMemoryManager()
 	{
-		return *GET_SINGLETON(MemoryManager);
+		return *GET_SINGLETON(memory_manager);
 	}
 
-	void MemoryManager::DestroyMemoryManager()
+	void memory_manager::DestroyMemoryManager()
 	{
-		_aligned_free(GET_SINGLETON(MemoryManager));
+		_aligned_free(GET_SINGLETON(memory_manager));
 	}
 
-	void*	MemoryManager::HeapAllocate(uint64 size, uint32 heapid)
+	void*	memory_manager::HeapAllocate(uint64 size, uint32 heapid)
 	{
 		return m_heap.Allocate(size, heapid);
 	}
-	void	MemoryManager::HeapDeallocate(void* obj, uint32 heapid)
+	void	memory_manager::HeapDeallocate(void* obj, uint32 heapid)
 	{
 		m_heap.Deallocate(obj, heapid);
 	}
 
-	char* MemoryManager::AllocateNonPersistentString(uint64 size)
+	char* memory_manager::AllocateNonPersistentString(uint64 size)
 	{
-		return static_cast<char*>(m_stringbuffer.Allocate(size));
+		return static_cast<char*>(m_stringbuffer.allocate(size));
 	}
 
-	MemoryManager::~MemoryManager()
+	memory_manager::~memory_manager()
 	{
 	}
 }

@@ -12,13 +12,13 @@ namespace kurobako
 		{ 
 			if (m_instance == nullptr)
 			{
-				void* ptr = kurobako::memory::MemoryManager::GetMemoryManager().AllocateSingleton(0, sizeof(T)); 
+				void* ptr = kurobako::memory::memory_manager::GetMemoryManager().AllocateSingleton(0, sizeof(T)); 
 				m_instance = new(ptr) T;
 			}
 			return *m_instance;
 		}
         static void SetInstance(T* instance){m_instance = instance;}
-		static void DestroyInstance() { GET_SINGLETON_SCOPED(kurobako::memory, MemoryManager)->DeallocateSingleton(m_instance, sizeof(T)); }
+		static void DestroyInstance() { GET_SINGLETON_SCOPED(kurobako::memory, memory_manager)->DeallocateSingleton(m_instance, sizeof(T)); }
         private:
 	};
 }

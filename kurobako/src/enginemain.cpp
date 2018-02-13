@@ -10,8 +10,7 @@ namespace kurobako::engine
     void InitEngine()
     {
         constexpr uint64 allocation_size = static_cast<uint64>(4) << 30;
-	    kurobako::memory::MemoryManager::InitializeMemoryManager(allocation_size);
-	    CREATE_SINGLETON_SCOPED(kurobako::log, Logger);
+	    kurobako::memory::memory_manager::InitializeMemoryManager(allocation_size);
 	
 #if defined(KBK_DEBUG)
         std::cout << "Initializing Engine(Debug)" << std::endl;
@@ -25,7 +24,6 @@ namespace kurobako::engine
     }
 	void DestroyEngine()
 	{
-		DESTROY_SINGLETON_SCOPE(kurobako::log, Logger);
-		kurobako::memory::MemoryManager::DestroyMemoryManager();
+		kurobako::memory::memory_manager::DestroyMemoryManager();
 	}
 }

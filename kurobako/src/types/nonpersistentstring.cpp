@@ -20,7 +20,7 @@ namespace kurobako
         
 		char* temp;
         m_strlen = strlen(str) + 1;
-		temp = GET_SINGLETON_SCOPED(memory,MemoryManager)->AllocateNonPersistentString(m_strlen);
+		temp = GET_SINGLETON_SCOPED(memory,memory_manager)->AllocateNonPersistentString(m_strlen);
         strcpy_s(temp, m_strlen,static_cast<const char*>(str));
 		m_str = temp;
     }
@@ -33,7 +33,7 @@ namespace kurobako
     {
 		char* temp;
         m_strlen = strlen(str) + 1;
-		temp = GET_SINGLETON_SCOPED(memory,MemoryManager)->AllocateNonPersistentString(m_strlen);
+		temp = GET_SINGLETON_SCOPED(memory,memory_manager)->AllocateNonPersistentString(m_strlen);
         strcpy_s(temp,m_strlen, str);
 		m_str = temp;
     }

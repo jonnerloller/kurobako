@@ -4,14 +4,14 @@
 #include "utility\singleton.h"
 #include "utility\globalsingletons.h"
 #include "memorystack.h"
-#include "circularmemorybuffer.h"
+#include "circularbuffer.h"
 #include "memoryheap.h"
 #include "memoryconstants.h"
-#include "arrayheap.h"
+#include "memoryheap.h"
 #include <utility>
 namespace kurobako::memory
 {
-    class MemoryManager
+    class memory_manager
     {
 		public:
         enum
@@ -22,12 +22,12 @@ namespace kurobako::memory
         };
         
 
-        MemoryManager(uint64 size);
-        MemoryManager(const MemoryManager& rhs) = delete;
-        MemoryManager::~MemoryManager();
+        memory_manager(uint64 size);
+        memory_manager(const memory_manager& rhs) = delete;
+        memory_manager::~memory_manager();
 
         static void InitializeMemoryManager(uint64 size);
-        static MemoryManager& GetMemoryManager();
+        static memory_manager& GetMemoryManager();
         static void DestroyMemoryManager();
 
 		void*	AllocateSingleton(uint64 id, uint64 size);
@@ -37,14 +37,14 @@ namespace kurobako::memory
 		void	HeapDeallocate(void* obj, uint32 heapid);
         char*	AllocateNonPersistentString(uint64 size);
 
-		inline CircularMemoryBuffer& GetStringBuffer() { return m_stringbuffer; }
+		inline circular_buffer& GetStringBuffer() { return m_stringbuffer; }
         private:
-        MemoryStack m_memory;
-        CircularMemoryBuffer m_stringbuffer;
+        stack m_memory;
+        circular_buffer m_stringbuffer;
 
         //Heaps should definitely come last. seriously.
-        MemoryHeap m_heap;
-        ArrayHeap m_buddyheap;
+        heap m_heap;
+        heap m_buddyheap;
 		
 		
     };
@@ -52,16 +52,16 @@ namespace kurobako::memory
 	template <typename T>
 	T* HeapAllocate(cstr memtag)
 	{
-		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)>()));
-		MemoryHeap::SetHeaderAllocatePattern(ret,cstr);
+		T* ret = static_cast<T*>(kurobako::memory::memory_manager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)>()));
+		heap::SetHeaderAllocatePattern(ret,cstr);
 		return ret;
 	}
 
 	template <typename T>
 	T* HeapNew(cstr memtag)
 	{
-		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)>()));
-		MemoryHeap::SetHeaderAllocatePattern(ret,memtag);
+		T* ret = static_cast<T*>(kurobako::memory::memory_manager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)>()));
+		heap::SetHeaderAllocatePattern(ret,memtag);
 		ret = new(ret)T();
 		return ret;
 	}
@@ -69,8 +69,8 @@ namespace kurobako::memory
 	template <typename T, typename ... Args>
 	T* HeapNew(cstr memtag, Args&&... args)
 	{
-		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)>()));
-		MemoryHeap::SetHeaderAllocatePattern(ret,cstr);
+		T* ret = static_cast<T*>(kurobako::memory::memory_manager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)>()));
+		heap::SetHeaderAllocatePattern(ret,cstr);
 		ret = new(ret)T(std::forward<Args>(args)...);
 		return ret;
 	}
@@ -79,16 +79,16 @@ namespace kurobako::memory
 	template <typename T, int64 N>
 	T* HeapAllocate(cstr memtag)
 	{
-		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)*N>()));
-		MemoryHeap::SetHeaderAllocatePattern(ret, cstr);
+		T* ret = static_cast<T*>(kurobako::memory::memory_manager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)*N>()));
+		heap::SetHeaderAllocatePattern(ret, cstr);
 		return ret;
 	}
 
 	template <typename T, int64 N>
 	T* HeapNew(cstr memtag)
 	{
-		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)*N>()));
-		MemoryHeap::SetHeaderAllocatePattern(ret, cstr);
+		T* ret = static_cast<T*>(kurobako::memory::memory_manager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)*N>()));
+		heap::SetHeaderAllocatePattern(ret, cstr);
 		for(int64 i =0; i < N; ++i)
 		{
 			ret = new(ret+i)T();
@@ -99,8 +99,8 @@ namespace kurobako::memory
 	template <typename T, int64 N>
 	T* HeapNew(cstr memtag,const T&obj)
 	{
-		T* ret = static_cast<T*>(kurobako::memory::MemoryManager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)*N>()));
-		MemoryHeap::SetHeaderAllocatePattern(ret, cstr);
+		T* ret = static_cast<T*>(kurobako::memory::memory_manager::GetMemoryManager().HeapAllocate(sizeof(T), GetHeapIndex<sizeof(T)*N>()));
+		heap::SetHeaderAllocatePattern(ret, cstr);
 		ret = new(ret)T(obj);
 		for(int64 i =0; i < N; ++i)
 		{
@@ -112,9 +112,9 @@ namespace kurobako::memory
 	template <typename T>
 	void HeapDeallocate(T* obj)
 	{
-		MemoryHeap::SetHeaderDeallocatePattern(obj);
+		heap::SetHeaderDeallocatePattern(obj);
 		// return pointer so we can store it.
-		kurobako::memory::MemoryManager::GetMemoryManager().HeapDeallocate(obj,GetHeapIndex<sizeof(T)>());
+		kurobako::memory::memory_manager::GetMemoryManager().HeapDeallocate(obj,GetHeapIndex<sizeof(T)>());
 	}
 
 	template <typename T>
@@ -123,7 +123,7 @@ namespace kurobako::memory
 		//Call Destructor
 		obj->~T();
 		// return pointer so we can store it.
-		kurobako::memory::MemoryManager::GetMemoryManager().HeapDeallocate(obj,GetHeapIndex<sizeof(T)>());
+		kurobako::memory::memory_manager::GetMemoryManager().HeapDeallocate(obj,GetHeapIndex<sizeof(T)>());
 	}
 
 	template <typename T, uint64 N>
@@ -135,7 +135,7 @@ namespace kurobako::memory
 			(obj+i)->~T();
 		}
 		// return pointer so we can store it.
-		kurobako::memory::MemoryManager::GetMemoryManager().HeapDeallocate(obj,GetHeapIndex<sizeof(T)>());
+		kurobako::memory::memory_manager::GetMemoryManager().HeapDeallocate(obj,GetHeapIndex<sizeof(T)>());
 	}
 
   #include "memorymanager.hpp"

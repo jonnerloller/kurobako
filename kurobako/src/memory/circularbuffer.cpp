@@ -1,32 +1,32 @@
-#include "circularmemorybuffer.h"
+#include "circularbuffer.h"
 #include "memorystack.h"
 namespace kurobako::memory
 {
-    CircularMemoryBuffer::CircularMemoryBuffer(MemoryStack& allocator, uint64 size)
+    circular_buffer::circular_buffer(stack& allocator, uint64 size)
     :   m_allocator(allocator),
         m_size(size),
-        m_base(reinterpret_cast<uintptr>(allocator.Allocate(size))),
+        m_base(reinterpret_cast<uintptr>(allocator.allocate(size))),
         m_current(m_base.load()),
         m_destroyed(false)
     {
 
     }
 
-	CircularMemoryBuffer::~CircularMemoryBuffer()
+	circular_buffer::~circular_buffer()
     {
-        Destroy();
+        destroy();
     }
 
-    void CircularMemoryBuffer::Destroy()
+    void circular_buffer::destroy()
     {
         if(m_destroyed == false)
         {
 			uintptr temp = m_base;
-            m_allocator.Deallocate(reinterpret_cast<void*>(temp),m_size);
+            m_allocator.deallocate(reinterpret_cast<void*>(temp),m_size);
         }
     }
 
-    void* CircularMemoryBuffer::Allocate(uint64 size)
+    void* circular_buffer::allocate(uint64 size)
     {
 		uintptr current;
 		uintptr target;
@@ -38,7 +38,7 @@ namespace kurobako::memory
         return reinterpret_cast<void*>(target - size);
     }
 
-	void CircularMemoryBuffer::Reset()
+	void circular_buffer::reset()
 	{
 		m_current = m_base.load();
 	}

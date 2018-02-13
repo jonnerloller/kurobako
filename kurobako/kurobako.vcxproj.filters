@@ -58,9 +58,6 @@
     <ClCompile Include="ext\glm\detail\glm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\memory\circularmemorybuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\memory\memoryheap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -88,7 +85,10 @@
     <ClCompile Include="src\log\logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\memory\arrayheap.cpp">
+    <ClCompile Include="src\memory\memoryblockheap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\memory\circularbuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -615,9 +615,6 @@
     <ClInclude Include="ext\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\memory\circularmemorybuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\memory\memoryconstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -660,7 +657,10 @@
     <ClInclude Include="src\log\logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\memory\arrayheap.h">
+    <ClInclude Include="src\memory\memoryblockheap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory\circularbuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

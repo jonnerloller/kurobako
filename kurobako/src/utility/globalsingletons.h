@@ -16,8 +16,8 @@ namespace kurobako
 {
 	namespace memory
 	{
-		FOWARD_CLASS_DECLARATION(MemoryManager);
-		DECLARE_SINGLETON(MemoryManager);
+		FOWARD_CLASS_DECLARATION(memory_manager);
+		DECLARE_SINGLETON(memory_manager);
 	}
 	namespace log 
 	{
